@@ -9,6 +9,8 @@ import Register from "./view/Register";
 import Home from "./view/Home";
 import ViewProduct from "./view/ViewProduct";
 import DetailProduct from "./view/DetailProduct";
+import 'react-toastify/dist/ReactToastify.css';
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

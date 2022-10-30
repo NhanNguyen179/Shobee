@@ -3,38 +3,53 @@ import * as React from "react";
 import styled from "styled-components";
 import CardProduct from "../../components/CardProduct";
 import { Pagination } from "@mui/material";
+import productAPI from "../../api/productFunction";
+import orderApi from "../../api/orderApi";
 
 const ViewProduct = () => {
+  const [listProduct, setListProduct] = React.useState<any>();
+  const [province, setProvince] = React.useState<any>();
+
+  React.useEffect(() => {
+    // Update the document title using the browser API
+    const fetch = async () => {
+      const responeGetProvince: any = await orderApi.getProvinces();
+      setProvince(responeGetProvince);
+    };
+    fetch();
+  }, []);
+  console.log("Order", province);
+
   return (
     <WrapListProduct>
-     <WrapPagination>
+      <WrapPagination>
         <TextPagination>Sản phẩm mới nhất</TextPagination>
         <Pagination count={10} color="primary" />
       </WrapPagination>
       <WrapViewProduct>
         <Grid container spacing={6}>
-          <Grid item xs={3}>
+          <Grid item xs={12} lg={3}>
             <CardProduct />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} lg={3}>
             <CardProduct />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} lg={3}>
             <CardProduct />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} lg={3}>
             <CardProduct />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} lg={3}>
             <CardProduct />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} lg={3}>
             <CardProduct />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12}>
             <CardProduct />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} lg={3}>
             <CardProduct />
           </Grid>
         </Grid>
@@ -46,7 +61,6 @@ export default ViewProduct;
 const WrapListProduct = styled.div`
   margin: 0 47px 0px 45px;
 `;
-
 
 const WrapViewProduct = styled.div`
   margin: 0px 100px 0px 100px;

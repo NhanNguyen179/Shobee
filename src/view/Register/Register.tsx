@@ -14,19 +14,29 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Select, MenuItem } from "@material-ui/core";
 import { motion } from "framer-motion";
-import styled from 'styled-components';
+import styled from "styled-components";
+import userFunction from "../../api/userFunction";
 
 const Register = () => {
   const [role, setRole] = React.useState();
   const [city, setCity] = React.useState();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
+    console.log(data);
+    const dataTemp = {
+      username: data.get("username"),
       password: data.get("password"),
-    });
+      certificate: data.get("certificate"),
+      email: data.get("email"),
+    };
+    console.log(dataTemp);
+    try {
+      const response: any = await userFunction.register(dataTemp, role);
+    } catch (err) {
+      console.log(err);
+    }
   };
   const handleChangeRole = (event: any) => {
     setRole(event.target.value);
@@ -36,8 +46,7 @@ const Register = () => {
   };
   return (
     <ThemeProvider theme={theme}>
-           <Container component="main" maxWidth="xs">
-
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -92,7 +101,7 @@ const Register = () => {
               margin="normal"
               required
               fullWidth
-              name="cerfiticate"
+              name="certificate"
               label="Cerfiticate"
               type="text"
               id="cerfiticate"
@@ -103,10 +112,15 @@ const Register = () => {
               value={role}
               label="Age"
               onChange={handleChangeRole}
-              style={{ width: "100%", margin: "20px 0px 20px 0px"  ,  outline: '1px solid green' ,height : '50px'}}
+              style={{
+                width: "100%",
+                margin: "20px 0px 20px 0px",
+                outline: "1px solid green",
+                height: "50px",
+              }}
             >
-              <MenuItem value={1}>Shop</MenuItem>
-              <MenuItem value={2}>User</MenuItem>
+              <MenuItem value="shop">Shop</MenuItem>
+              <MenuItem value="customer">User</MenuItem>
             </Select>
             {role === 1 ? (
               <motion.div
@@ -122,8 +136,12 @@ const Register = () => {
                   value={city}
                   label="Age"
                   onChange={handleChangeCity}
-                  style={{ width: "100%", margin: "20px 0px 20px 0px"  ,  outline: '1px solid green' ,height : '50px'}}
-
+                  style={{
+                    width: "100%",
+                    margin: "20px 0px 20px 0px",
+                    outline: "1px solid green",
+                    height: "50px",
+                  }}
                 >
                   <MenuItem value={10}>Da Nang</MenuItem>
                   <MenuItem value={20}>Ho Chi Minh </MenuItem>
@@ -150,11 +168,9 @@ const Register = () => {
 };
 export default Register;
 
-
-
 const TextInput = styled(TextField)(() => ({
-  outline: '1px solid green',
-}))
+  outline: "1px solid green",
+}));
 function Copyright(props: any) {
   return (
     <Typography
