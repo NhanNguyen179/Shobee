@@ -4,39 +4,46 @@ import mainMobile from "../../img/mainMobile.jpg";
 import MainButton from "./MainButton";
 
 export default function Header() {
- const isMobile = useMediaQuery("(max-width:599px)");
+    const isMobile = useMediaQuery("(max-width:599px)");
 
-  return (
-    <div
-      className="main-image"
-      style={
-        isMobile
-          ? {
-              backgroundImage: `url(${mainMobile})`,
-              backgroundPosition: "center center",
-            }
-          : {
-              backgroundImage: `url(${mainImageBigger})`,
-              backgroundPosition: "center left",
-            }
-      }
-    >
-      <div style={{ maxWidth: "1280px", margin: "0px auto" }}>
+    return (
         <div
-          className={isMobile ? "main-text_mobile" : "main-text_bigger-screen"}
+            className="main-image"
+            style={
+                isMobile
+                    ? {
+                          backgroundImage: `url(${mainMobile})`,
+                          backgroundPosition: "center center",
+                      }
+                    : {
+                          backgroundImage: `url(${mainImageBigger})`,
+                          backgroundPosition: "center left",
+                      }
+            }
         >
-          A little friend
-          <br />
-          at home
-          {!isMobile && (
-            <div className="sub-text_bigger-screen">
-              Each of them has unique shape, color and personality. Pick up your
-              succulents.
+            <div style={{ maxWidth: "1280px", margin: "0px auto" }}>
+                <div
+                    className={
+                        isMobile
+                            ? "main-text_mobile"
+                            : "main-text_bigger-screen"
+                    }
+                >
+                    Người bạn
+                    <br />
+                    tại nhà
+                    <br />
+                    không thể thiếu
+                    {!isMobile && (
+                        <div className="sub-text_bigger-screen">
+                            Đầy đủ sản phẩm, màu sắc, kích cỡ, giá cả phù hợp.
+                            Phù hợp với trẻ nhỏ, trẻ lớn, người già, người trẻ,
+                            người yêu thú cưng.
+                        </div>
+                    )}
+                </div>
+                <MainButton />
             </div>
-          )}
         </div>
-        <MainButton />
-      </div>
-    </div>
-  );
+    );
 }
