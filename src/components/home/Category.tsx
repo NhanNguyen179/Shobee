@@ -8,7 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import productFunction from "../../api/productFunction";
-import * as React from 'react'
+import * as React from "react";
 const useStyles = makeStyles({
   root: {
     textAlign: "center",
@@ -24,14 +24,14 @@ export default function Home() {
     // Update the document title using the browser API
     const fetch = async () => {
       const responeGetProvince: any = await productFunction.getCategory();
-      console.log("responeGetProvince",responeGetProvince)
+      console.log("responeGetProvince", responeGetProvince);
       setCategories(responeGetProvince);
     };
     fetch();
   }, []);
   return (
     <div>
-      <div className="shop-by-category">Shop By Category</div>
+      <div className="shop-by-category">Danh mục nổi bật</div>
       <Grid
         container
         style={{
@@ -40,7 +40,7 @@ export default function Home() {
           margin: "0px auto",
         }}
       >
-        {categories?.map((item : any, index : any) => (
+        {categories?.map((item: any, index: any) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
             <Card className={classes.root}>
               <CardActionArea>

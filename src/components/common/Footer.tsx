@@ -1,66 +1,110 @@
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import Grid from "@material-ui/core/Grid";
-import ImageGallery from "react-image-gallery";
-import galleryImage1 from "../../img/galleryImage1.jpg";
-import galleryImage2 from "../../img/galleryImage2.jpg";
-import galleryImage3 from "../../img/galleryImage3.jpg";
+import InstagramIcon from "@material-ui/icons/Instagram";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import HomeIcon from "@material-ui/icons/Home";
+import { Typography, Grid, Container } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
-const images = [
-  {
-    original: galleryImage1,
+const useStyles = makeStyles((theme) => ({
+  footer: {
+    backgroundColor: "#f5f5f5",
+    width: `100%`,
+    position: "relative",
+    overflow: "hidden",
+    marginTop: "6em",
+    padding: "2em 0 ",
   },
-  {
-    original: galleryImage2,
+  copylight: {
+    color: "black",
+    fontSize: "1em",
+    "&:hover": {
+      color: "#FFA500",
+    },
   },
-  {
-    original: galleryImage3,
+}));
+
+const useIconStyles = makeStyles((theme) => ({
+  snsIcon: {
+    width: "30px",
+    height: "30px",
+
+    [theme.breakpoints.down("xs")]: {
+      width: "25px",
+      height: "25px",
+    },
   },
-];
+}));
 
 export default function Footer() {
-  const isMobile = useMediaQuery("(max-width:599px)");
+  const classes = useStyles();
+  const iconClasses = useIconStyles();
 
   return (
-    <div style={{ backgroundColor: "#f3f3f3" }} className="footer">
-      <Grid
-        container
-        style={{ justifyContent: "space-evenly", alignItems: "center" }}
-      >
-        {!isMobile && (
-          <Grid item sm={6} style={{ flexBasis: "auto" }}>
-            <div className="footer-link">
-              <div>ABOUT</div>
-              <div>HELP</div>
-              <div>SHOP</div>
-            </div>
+    <footer className={classes.footer}>
+      <Container maxWidth="lg">
+        <Grid container spacing={3} justify="center"></Grid>
+        <Grid container direction="column" style={{ margin: "1.2em 0" }}>
+          <Grid item container spacing={2} justify="center">
+            <Grid item component={"a"} rel="noreferrer noopener" href="/">
+              <HomeIcon
+                style={{ color: "#FFA500" }}
+                className={iconClasses.snsIcon}
+              />
+            </Grid>
+            <Grid
+              item
+              component={"a"}
+              target="_blank"
+              rel="noreferrer noopener"
+              href="https://www.facebook.com/"
+            >
+              <FacebookIcon
+                className={iconClasses.snsIcon}
+                style={{ color: "#FFA500" }}
+              />
+            </Grid>
+            <Grid
+              item
+              component={"a"}
+              target="_blank"
+              rel="noreferrer noopener"
+              href="https://www.instagram.com/"
+            >
+              <InstagramIcon
+                className={iconClasses.snsIcon}
+                style={{ color: "#FFA500" }}
+              />
+            </Grid>
+            <Grid
+              item
+              component={"a"}
+              target="_blank"
+              rel="noreferrer noopener"
+              href="https://github.com/"
+            >
+              <GitHubIcon
+                className={iconClasses.snsIcon}
+                style={{ color: "#FFA500" }}
+              />
+            </Grid>
           </Grid>
-        )}
-        <Grid item sm={6} style={{ flexBasis: "auto" }}>
-          <div className="follow-us-text">Follow us on Instagram</div>
-          <div className={isMobile ? "" : "image-galley"}>
-            <ImageGallery
-              items={images}
-              showThumbnails={false}
-              showFullscreenButton={false}
-              showPlayButton={false}
-              autoPlay={true}
-              slideInterval={3000}
-            />
-          </div>
         </Grid>
-        {isMobile && (
-          <Grid item sm={6} style={{ flexBasis: "auto" }}>
-            <div className="footer-link">
-              <div>ABOUT</div>
-              <div>HELP</div>
-              <div>SHOP</div>
-            </div>
-          </Grid>
-        )}
-      </Grid>
-      <div className="footer-credit">
-        ©2021 Misako Watanabe Website design and development
-      </div>
-    </div>
+        <Grid
+          item
+          container
+          component={"a"}
+          rel="noreferrer noopener"
+          href="/"
+          justify="center"
+          style={{
+            textDecoration: "none",
+          }}
+        >
+          <Typography className={classes.copylight}>
+            @2022 ShopBee by DN City
+          </Typography>
+        </Grid>
+      </Container>
+    </footer>
   );
 }
