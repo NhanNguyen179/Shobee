@@ -9,7 +9,7 @@ import TotalInCart from "./TotalInCart";
 
 const Cart = () => {
   const { state } = useContext(AppContext);
-
+  console.log("state",state);
   const CartContents = () => {
     if (state.products[0] == null) {
       return <NoProductInCart />;

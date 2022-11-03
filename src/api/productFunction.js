@@ -10,6 +10,9 @@ const productAPI = {
   async getProductByCategoryId(id) {
     return  await productApi.get(`/sv2/products?categoryId=${id}`);
   },
+  async getDetailProductById(id) {
+    return  await productApi.get(`/sv2/products/${id}`);
+  },
   getUsersByUsername(username) {
     return productApi.get(`/user/getUsersByUsername/${username}`);
   },

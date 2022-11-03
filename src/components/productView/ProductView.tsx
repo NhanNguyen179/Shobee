@@ -11,17 +11,23 @@ import ProductViewContainer from "./ProductViewContainer";
 import ImageView from "./ImageView";
 import DescriptionView from "./DescriptionView";
 import orderApi from "../../api/orderApi";
+import productFunction from "../../api/productFunction";
+
 type Params = {
   id: string;
 };
 
 export default function ProductView() {
   const { id } = useParams<Params>();
-  const thisProduct = ProductData.find((prod) => prod.id === id)!;
   const [reviews, setReviews] = React.useState<any>();
+  const [product, setProduct] = React.useState<any>();
   React.useEffect(() => {
     // Update the document title using the browser API
     const fetch = async () => {
+      const responeGetProvince: any =
+        await productFunction.getDetailProductById(id);
+        console.log("ProductDetail",responeGetProvince )
+      setProduct(responeGetProvince);
     };
     fetch();
   }, []);
@@ -33,15 +39,16 @@ export default function ProductView() {
     dispatch({
       type: Types.Add,
       payload: {
-        id: thisProduct.id,
-        name: thisProduct.name,
-        price: thisProduct.price,
-        image: thisProduct.image,
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
         quantity: quantityState.quantity,
         button: false,
         previousQuantity: quantityState.quantity,
         currentQuantity: quantityState.quantity,
-        category: thisProduct.category,
+        category: product.category,
+        shopId : product.shop.id,
       },
     });
     dispatch({
@@ -53,7 +60,7 @@ export default function ProductView() {
     dispatch({
       type: Types.SubTotalIncrease,
       payload: {
-        price: thisProduct.price,
+        price: product.price,
         quantity: quantityState.quantity,
       },
     });
@@ -67,19 +74,19 @@ export default function ProductView() {
     name: "quantity",
   });
 
-  if (thisProduct && isMobile) {
+  if (product && isMobile) {
     return (
       <ProductViewContainer>
         <ImageView
-          category={thisProduct?.category}
-          image={thisProduct?.image}
-          name={thisProduct?.name}
+          category={product?.category}
+          image={product?.image}
+          name={product?.name}
         />
         <DescriptionView
-          name={thisProduct?.name}
-          description={thisProduct?.description}
-          price={thisProduct?.price}
-          id={thisProduct?.id}
+          name={product?.name}
+          description={product?.description}
+          price={product?.price}
+          id={product?.id}
           quantityState={quantityState}
           setQuantityState={setQuantityState}
           quantity={quantityState.quantity}
@@ -87,7 +94,7 @@ export default function ProductView() {
         />
       </ProductViewContainer>
     );
-  } else if (thisProduct && !isMobile) {
+  } else if (product && !isMobile) {
     return (
       <ProductViewContainer>
         <Grid
@@ -100,17 +107,17 @@ export default function ProductView() {
         >
           <Grid item xs={12} sm={6} style={{ flexBasis: "45%" }}>
             <ImageView
-              category={thisProduct?.category}
-              image={thisProduct?.image}
-              name={thisProduct?.name}
+              category={product?.category}
+              image={product?.image}
+              name={product?.name}
             />
           </Grid>
           <Grid item xs={12} sm={6} style={{ flexBasis: "55%" }}>
             <DescriptionView
-              name={thisProduct?.name}
-              description={thisProduct?.description}
-              price={thisProduct?.price}
-              id={thisProduct?.id}
+              name={product?.name}
+              description={product?.description}
+              price={product?.price}
+              id={product?.id}
               quantityState={quantityState}
               setQuantityState={setQuantityState}
               quantity={quantityState.quantity}

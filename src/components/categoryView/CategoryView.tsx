@@ -7,7 +7,6 @@ import NotFoundPage from "../NotFoundPage";
 import productFunction from "../../api/productFunction";
 import orderApi from "../../api/orderApi";
 
-
 type Params = {
   categoryName: string;
 };
@@ -20,10 +19,9 @@ export default function CategoryPage() {
     const fetch = async () => {
       const responeGetProvince: any =
         await productFunction.getProductByCategoryId(categoryName);
-      console.log("responeGetProvince", responeGetProvince);
-      setProducts(responeGetProvince);
-      const temp: any = await orderApi.getReviewByProductId();
-      console.log("Review", temp);
+      setProducts(responeGetProvince.data);
+      console.log(responeGetProvince.data);
+      // const temp: any = await orderApi.getReviewByProductId();
     };
     fetch();
   }, []);
@@ -48,18 +46,16 @@ export default function CategoryPage() {
     });
   };
 
-  CategoryData.forEach((item) => {
-    if (item.categoryName === categoryName) {
-      selectedCategory.push(
-        <div key={item.categoryName}>
-          <div className="category-name">{item.categoryName}</div>
-          <p className="category-description">{item.description}</p>
-        </div>
-      );
-    }
+  products?.map((item: any) => {
+    return (
+      <div key={item.name}>
+        <div className="category-name">{item.name}</div>
+        <p className="category-description">{item.price}</p>
+      </div>
+    );
   });
 
-  if (CategoryData.map((a) => a.categoryName).includes(categoryName))
+  if (products)
     return (
       <div style={{ maxWidth: "1280px", margin: "0px auto" }}>
         {selectedCategory}

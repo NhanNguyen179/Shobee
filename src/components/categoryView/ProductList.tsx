@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { ProductData } from "../../data/ProductData";
 import ProductListPaper from "../reusableComponents/ProductListPaper";
 import ProductListContainer from "../reusableComponents/ProductListContainer";
+import productFunction from "../../api/productFunction";
 
 type Params = {
   categoryName: string;
@@ -18,42 +19,59 @@ export default function ProductList({ sortState }: sortProps) {
     var selectedProduct: any[] = [];
 
     const [sortedProduct, setSortedProduct] = useState<any[]>([]);
+    const [products, setProducts] = React.useState<any>();
 
     useEffect(() => {
-      if (sortState.sort === "Best selling") {
-        setSortedProduct(ProductData.sort((a, b) => b.sold - a.sold));
-      } else if (sortState.sort === "Price, high to low") {
-        setSortedProduct(ProductData.sort((a, b) => b.price - a.price));
-      } else if (sortState.sort === "Price, low to high") {
-        setSortedProduct(ProductData.sort((a, b) => a.price - b.price));
-      } else {
-        setSortedProduct(
-          ProductData.sort(function (a, b) {
-            if (a.name < b.name) {
-              return -1;
-            }
-            if (a.name > b.name) {
-              return 1;
-            }
-            return 0;
-          })
-        );
-      }
-    }, [sortState.sort]);
+      async function fetchData() {
+        // You can await here
+        const responeGetProvince: any =
+          await productFunction.getProductByCategoryId(categoryName);
+        setProducts(responeGetProvince.data);
+        console.log("ResponseData", responeGetProvince);
+        setSortedProduct(responeGetProvince.data);
 
-    sortedProduct.forEach((product) => {
-      if (product.category === categoryName) {
-        selectedProduct.push(
-          <ProductListPaper
-            key={product.id}
-            id={product.id}
-            category={categoryName}
-            name={product.name}
-            image={product.image}
-            price={product.price}
-          />
-        );
+        // ...
       }
+      fetchData();
+      console.log("sortState",sortState)
+      // if (sortState.sort === "Best selling") {
+      //   setSortedProduct(
+      //     products?.data?.sort((a: any, b: any) => b.price - a.price)
+      //   );
+      // } else if (sortState.sort === "Price, high to low") {
+      //   setSortedProduct(
+      //     products?.data?.sort((a: any, b: any) => b.price - a.price)
+      //   );
+      // } else if (sortState.sort === "Price, low to high") {
+      //   setSortedProduct(
+      //     products?.data?.sort((a: any, b: any) => a.price - b.price)
+      //   );
+      // } else {
+      //   setSortedProduct(
+      //     ProductData.sort(function (a, b) {
+      //       if (a.name < b.name) {
+      //         return -1;
+      //       }
+      //       if (a.name > b.name) {
+      //         return 1;
+      //       }
+      //       return 0;
+      //     })
+      //   );
+      // }
+    }, []);
+    console.log("sort", sortedProduct);
+    sortedProduct?.forEach((product) => {
+      selectedProduct?.push(
+        <ProductListPaper
+          key={product.id}
+          id={product.id}
+          category={categoryName}
+          name={product.name}
+          image={product.imageUrl}
+          price={product.price}
+        />
+      );
     });
 
     return <React.Fragment>{selectedProduct}</React.Fragment>;

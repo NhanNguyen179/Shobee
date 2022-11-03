@@ -7,11 +7,11 @@ import Typography from "@material-ui/core/Typography";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 type eachItemProps = {
-  id: string;
-  category: string;
-  name: string;
-  image: string;
-  price: number;
+  id?: string;
+  category?: string;
+  name?: string;
+  image?: string;
+  price?: number;
 };
 
 const ProductListContainer = ({
@@ -24,6 +24,7 @@ const ProductListContainer = ({
   const isMobile = useMediaQuery("(max-width:599px)");
   const isfrom959px = useMediaQuery("(min-width:960px)");
   const isto1279px = useMediaQuery("(max-width:1279px)");
+
 
   return (
     <Grid
@@ -47,7 +48,7 @@ const ProductListContainer = ({
             component="img"
             alt={`${name}`}
             height="280"
-            image={image}
+            image={` ${process.env.REACT_APP_API_BASE_URl_IMAGE}/${image}`}
             title={`${name}`}
           />
           <CardContent style={{ padding: 0 }}>

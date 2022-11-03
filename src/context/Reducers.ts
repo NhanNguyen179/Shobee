@@ -38,10 +38,12 @@ type ProductType = {
   previousQuantity: string;
   currentQuantity: string;
   category: string;
+  shopId? : string;
 };
 
 type ProductPayload = {
   [Types.Add]: {
+    shopId: any;
     id: string;
     name: string;
     price: number;
@@ -113,6 +115,7 @@ export const productReducer = (
             previousQuantity: action.payload.quantity,
             currentQuantity: action.payload.quantity,
             category: action.payload.category,
+            shopId : action.payload.shopId,
           },
         ];
       }

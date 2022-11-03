@@ -88,42 +88,44 @@ const ProductInCart = () => {
   return (
     <div>
       {!isMobile && <CartContentsTitle />}
-      {state.products.map((productInCart) => (
-        <div key={productInCart.id}>
-          <hr />
-          {isMobile ? (
-            <EachItemInCartMobile
-              category={productInCart.category}
-              id={productInCart.id}
-              image={productInCart.image}
-              quantity={productInCart.quantity}
-              price={productInCart.price}
-              name={productInCart.name}
-              currentQuantity={productInCart.currentQuantity}
-              button={productInCart.button}
-              handleChangeQuantity_TextField={handleChangeQuantity_TextField}
-              handleUpdateQuantity_TextField={handleUpdateQuantity_TextField}
-              handleUpdateQuantity_DropDown={handleUpdateQuantity_DropDown}
-              deleteProduct={deleteProduct}
-            />
-          ) : (
-            <EachItemInCartBiggerScreen
-              category={productInCart.category}
-              id={productInCart.id}
-              image={productInCart.image}
-              quantity={productInCart.quantity}
-              price={productInCart.price}
-              name={productInCart.name}
-              currentQuantity={productInCart.currentQuantity}
-              button={productInCart.button}
-              handleChangeQuantity_TextField={handleChangeQuantity_TextField}
-              handleUpdateQuantity_TextField={handleUpdateQuantity_TextField}
-              handleUpdateQuantity_DropDown={handleUpdateQuantity_DropDown}
-              deleteProduct={deleteProduct}
-            />
-          )}
-        </div>
-      ))}
+      {state.products
+        .sort((a, b) => a.shopId - b.shopId)
+        .map((productInCart) => (
+          <div key={productInCart.id}>
+            <hr />
+            {isMobile ? (
+              <EachItemInCartMobile
+                category={productInCart.category}
+                id={productInCart.id}
+                image={productInCart.image}
+                quantity={productInCart.quantity}
+                price={productInCart.price}
+                name={productInCart.name}
+                currentQuantity={productInCart.currentQuantity}
+                button={productInCart.button}
+                handleChangeQuantity_TextField={handleChangeQuantity_TextField}
+                handleUpdateQuantity_TextField={handleUpdateQuantity_TextField}
+                handleUpdateQuantity_DropDown={handleUpdateQuantity_DropDown}
+                deleteProduct={deleteProduct}
+              />
+            ) : (
+              <EachItemInCartBiggerScreen
+                category={productInCart.category}
+                id={productInCart.id}
+                image={productInCart.image}
+                quantity={productInCart.quantity}
+                price={productInCart.price}
+                name={productInCart.name}
+                currentQuantity={productInCart.currentQuantity}
+                button={productInCart.button}
+                handleChangeQuantity_TextField={handleChangeQuantity_TextField}
+                handleUpdateQuantity_TextField={handleUpdateQuantity_TextField}
+                handleUpdateQuantity_DropDown={handleUpdateQuantity_DropDown}
+                deleteProduct={deleteProduct}
+              />
+            )}
+          </div>
+        ))}
     </div>
   );
 };
