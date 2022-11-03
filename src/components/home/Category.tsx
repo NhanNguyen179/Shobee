@@ -13,10 +13,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     textAlign: "center",
     margin: "0% 5% 5% 5%",
-    height: "200px",
-    [theme.breakpoints.up(600)]: {
-      height: "100%",
-    },
+    // height: "200px",
+    // [theme.breakpoints.up(600)]: {
+    //   height: "100%",
+    // },
   },
 }));
 
@@ -81,11 +81,10 @@ export default function Home() {
                   <CardContent>
                     <Typography
                       gutterBottom
-                      component="span"
+                      component="p"
                       style={{
-                        display: "inline-block",
                         whiteSpace: "nowrap",
-                        overflow: "hidden !important",
+                        overflow: "hidden",
                         textOverflow: "ellipsis",
                       }}
                     >
@@ -95,7 +94,11 @@ export default function Home() {
                       variant="body2"
                       color="textSecondary"
                       component="p"
-                      style={{ overflow: "hidden" }}
+                      style={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
                     >
                       {item.description}
                     </Typography>
