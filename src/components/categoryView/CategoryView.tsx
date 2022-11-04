@@ -13,12 +13,14 @@ export default function CategoryPage() {
   const { categoryId } = useParams<Params>();
   const [products, setProducts] = useState<any>();
 
-  const fetch = async () => {
-    const respone: any = await productFunction.getProduct(categoryId);
-    setProducts(respone.data);
-  };
+ 
 
   React.useEffect(() => {
+    const fetch = async () => {
+      const respone: any = await productFunction.getProduct(categoryId);
+      console.log(respone)
+      setProducts(respone.data);
+    };
     fetch();
   }, []);
 
