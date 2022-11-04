@@ -1,4 +1,3 @@
-import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./home/Home";
 import CategoryPage from "./categoryView/CategoryView";
@@ -11,20 +10,15 @@ import Register from "../view/Register";
 export default function Main() {
   return (
     <Switch>
+      <Route exact path="/" component={Home}></Route>
       <Route exact path="/sign-in" component={SignIn}></Route>
       <Route exact path="/sign-up" component={Register}></Route>
-      <Route exact path="/" component={Home}></Route>
-
       <Route
         exact
-        path="/product/:categoryName"
+        path="/category/:categoryId"
         component={CategoryPage}
       ></Route>
-      <Route
-        exact
-        path="/product/:categoryName/:id"
-        component={ProductView}
-      ></Route>
+      <Route exact path="/product/:productId" component={ProductView}></Route>
       <Route exact path="/cart" component={Cart}></Route>
       <Route
         exact
