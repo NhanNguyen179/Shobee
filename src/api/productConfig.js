@@ -11,7 +11,7 @@ const productApi = axios.create({
 productApi.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    const accessToken = localStorage.getItem("access_token");
+    const accessToken = localStorage.getItem("jwtToken");
     if (accessToken) config.headers.Authorization = accessToken;
     return config;
   },

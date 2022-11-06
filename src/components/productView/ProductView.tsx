@@ -40,7 +40,7 @@ export default function ProductView() {
         id: product.id,
         name: product.name,
         price: product.price,
-        image: product.image,
+        image: product.imageUrl,
         quantity: quantityState.quantity,
         button: false,
         previousQuantity: quantityState.quantity,
@@ -106,7 +106,7 @@ export default function ProductView() {
           <Grid item xs={12} sm={6} style={{ flexBasis: "45%" }}>
             <ImageView
               category={product?.category}
-              image={product?.image}
+              image={product?.imageUrl}
               name={product?.name}
             />
           </Grid>

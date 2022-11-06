@@ -10,7 +10,7 @@ const CartContentsTitle = () => {
           marginBottom: "10px",
         }}
       >
-        <div style={{ width: "130px" }}></div>
+        <div style={{ width: "130px" }}>Hình ảnh</div>
         <div style={{ flexBasis: "20%" }}>Item</div>
         <div style={{ width: "91px" }}>Quantity</div>
         <div style={{ minWidth: "40px" }}>Price</div>

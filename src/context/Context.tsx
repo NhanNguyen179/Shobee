@@ -18,7 +18,7 @@ type ProductType = {
   previousQuantity: string;
   currentQuantity: string;
   category: string;
-  shopId? : any;
+  shopId?: any;
 };
 
 type InitialStateType = {
@@ -38,9 +38,17 @@ const AppContext = createContext<{
   dispatch: Dispatch<
     ProductActions | ShoppingCartActions | ShoppingCartSubTotalActions
   >;
+  invoice: any;
+  setInvoice: (newValue: []) => void;
+  auth: any;
+  setAuth: (newValue: {}) => void;
 }>({
   state: initialState,
   dispatch: () => null,
+  invoice: [],
+  auth: {},
+  setInvoice: () => undefined,
+  setAuth: () => undefined,
 });
 
 const mainReducer = (
@@ -58,11 +66,18 @@ const mainReducer = (
 
 const AppProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(mainReducer, initialState);
+  const [invoice, setInvoice] = React.useState<[]>([]);
+  const [auth, setAuth] = React.useState<any>();
+
   return (
     <AppContext.Provider
       value={{
         state,
         dispatch,
+        invoice,
+        setInvoice,
+        auth,
+        setAuth,
       }}
     >
       {children}

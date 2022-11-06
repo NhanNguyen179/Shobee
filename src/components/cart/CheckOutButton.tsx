@@ -9,7 +9,7 @@ export default function CheckOutButton() {
           className="checkout-button-icon"
           style={{ fontSize: "26px" }}
         />
-        Proceed to check out
+        THANH TOAN 
       </Button>
     </div>
   );

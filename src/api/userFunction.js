@@ -5,7 +5,10 @@ const userAPI = {
     return await userApi.post("/sv1/auth/admin/login/", data);
   },
   async register(data,role) {
-    return userApi.post(`/sv1/user/${role}/register_with_roles/`,data);
+    return userApi.post(`/sv1/users/${role}/register_with_roles/`,data);
+  },
+  async getInforUser(jwtToken) {
+    return userApi.get(`/sv1/users/me/get_user/`);
   },
   // getUserByUsername(username) {
   //   return userApi.get(`/user/getUserByUsername/${username}`)

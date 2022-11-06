@@ -16,6 +16,7 @@ type eachItemProps = {
   name: string;
   currentQuantity: string;
   button: boolean;
+  shopId : string;
   handleChangeQuantity_TextField: (id: string, e: string) => void;
   handleUpdateQuantity_TextField: (
     id: string,
@@ -44,6 +45,7 @@ const EachItemInCartBiggerScreen = ({
   handleUpdateQuantity_TextField,
   handleUpdateQuantity_DropDown,
   deleteProduct,
+  shopId,
 }: eachItemProps) => {
   const classes = useStyles();
 
@@ -89,16 +91,16 @@ const EachItemInCartBiggerScreen = ({
         }}
       >
         <NavLink to={`/product/${category}/${id}`}>
-          <CardMedia className={classes.cover} image={image} />
+          <CardMedia className={classes.cover} image={` ${process.env.REACT_APP_API_BASE_URl_IMAGE}/${image[0]}`} />
         </NavLink>
         <div
           className="product-name-in-cart_bigger-screen"
           style={{ flexBasis: "20%" }}
         >
-          {name}
+          {name}{shopId}
         </div>
         <QuantityPresentationSwitch />
-        <div className="price-in-cart_bigger-screen">{price} kr</div>
+        <div className="price-in-cart_bigger-screen">{price} VND</div>
         <Button
           onClick={() => deleteProduct(id, quantity, price)}
           className="delete-button-in-cart_bigger-screen"

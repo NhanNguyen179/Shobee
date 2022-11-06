@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import List from "@material-ui/core/List";
@@ -13,125 +13,139 @@ import { CategoryData } from "../../data/CategoryData";
 import CartPreview from "./CartPreview";
 import Search from "./Search";
 import logo from "../../img/Logo/logo.png";
-
+import userAPI from "../../api/userFunction";
+import { AppContext } from "../../context/Context";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LoginIcon from "@mui/icons-material/Login";
 type Anchor = "left";
 
 export default function Navigation() {
-    const [drawerState, setDrawerState] = useState({
-        left: false,
-    });
+  const [drawerState, setDrawerState] = useState({
+    left: false,
+  });
+  const { auth, setAuth } = useContext(AppContext);
 
-    const toggleDrawer =
-        (anchor: Anchor, open: boolean) =>
-        (event: React.KeyboardEvent | React.MouseEvent) => {
-            if (
-                event &&
-                event.type === "keydown" &&
-                ((event as React.KeyboardEvent).key === "Tab" ||
-                    (event as React.KeyboardEvent).key === "Shift")
-            ) {
-                return;
-            }
-
-            setDrawerState({ ...drawerState, [anchor]: open });
-        };
-
-    const list = (anchor: Anchor) => (
-        <div
-            role="presentation"
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}
-        >
-            <List>
-                {CategoryData.map((item, index) => (
-                    <ListItem button key={index}>
-                        <ListItemText>
-                            <NavLink
-                                to={`/product/${item.categoryName}`}
-                                className="drawer-link-text"
-                            >
-                                {item.categoryName}
-                                <KeyboardArrowRightIcon
-                                    className="arrow-icon"
-                                    style={{ fontSize: "30px" }}
-                                />
-                            </NavLink>
-                        </ListItemText>
-                    </ListItem>
-                ))}
-            </List>
-        </div>
-    );
-
-    const [change, setChange] = useState(false);
-    const changePosition = 50;
-    let position = useWindowScrollPosition();
-    if (position.y > changePosition && !change) {
-        setChange(true);
+  const token = localStorage.getItem("jwtToken");
+  useEffect(() => {
+    async function fetchData() {
+      const information = await userAPI.getInforUser(
+        localStorage.getItem("jwtToken")
+      );
+      setAuth(information);
     }
-    if (position.y <= changePosition && change) {
-        setChange(false);
-    }
-    let style = {
-        backgroundColor: change ? "rgb(243, 243, 243)" : "transparent",
-        transition: "400ms ease",
-    };
-    let logoStyle = {
-        width: change ? "50px" : "60px",
-        transition: "400ms ease",
-        borderRadius: "50%",
-        padding: "5px",
-    };
-    let navlinkLogoStyle = {
-        display: "flex",
-        alignItems: "center",
+    fetchData();
+  }, []);
+  const toggleDrawer =
+    (anchor: Anchor, open: boolean) =>
+    (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event &&
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+
+      setDrawerState({ ...drawerState, [anchor]: open });
     };
 
-    const isMobile = useMediaQuery("(max-width:599px)");
+  const list = (anchor: Anchor) => (
+    <div
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {CategoryData.map((item, index) => (
+          <ListItem button key={index}>
+            <ListItemText>
+              <NavLink
+                to={`/product/${item.categoryName}`}
+                className="drawer-link-text"
+              >
+                {item.categoryName}
+                <KeyboardArrowRightIcon
+                  className="arrow-icon"
+                  style={{ fontSize: "30px" }}
+                />
+              </NavLink>
+            </ListItemText>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
 
-    if (isMobile) {
-        return (
-            <div>
-                {(["left"] as Anchor[]).map((anchor) => (
-                    <div key={anchor} className="navbar" style={style}>
-                        <React.Fragment key={anchor}>
-                            <button
-                                onClick={toggleDrawer(anchor, true)}
-                                className="menu-icon"
-                            >
-                                <MenuIcon style={{ fontSize: "40px" }} />
-                            </button>
-                            <SwipeableDrawer
-                                anchor={anchor}
-                                open={drawerState[anchor]}
-                                onClose={toggleDrawer(anchor, false)}
-                                onOpen={toggleDrawer(anchor, true)}
-                            >
-                                {list(anchor)}
-                            </SwipeableDrawer>
-                        </React.Fragment>
-                        <div className="logo_mobile">
-                            <NavLink to="/" style={navlinkLogoStyle}>
-                                <img src={logo} alt="logo" style={logoStyle} />
-                                ShopBee
-                            </NavLink>
-                        </div>
-                        <Search />
-                        <CartPreview />
-                    </div>
-                ))}
+  const [change, setChange] = useState(false);
+  const changePosition = 50;
+  let position = useWindowScrollPosition();
+  if (position.y > changePosition && !change) {
+    setChange(true);
+  }
+  if (position.y <= changePosition && change) {
+    setChange(false);
+  }
+  let style = {
+    backgroundColor: change ? "rgb(243, 243, 243)" : "transparent",
+    transition: "400ms ease",
+  };
+  let logoStyle = {
+    width: change ? "50px" : "60px",
+    transition: "400ms ease",
+    borderRadius: "50%",
+    padding: "5px",
+  };
+  let navlinkLogoStyle = {
+    display: "flex",
+    alignItems: "center",
+  };
+
+  const isMobile = useMediaQuery("(max-width:599px)");
+
+  if (isMobile) {
+    return (
+      <div>
+        {(["left"] as Anchor[]).map((anchor) => (
+          <div key={anchor} className="navbar" style={style}>
+            <React.Fragment key={anchor}>
+              <button
+                onClick={toggleDrawer(anchor, true)}
+                className="menu-icon"
+              >
+                <MenuIcon style={{ fontSize: "40px" }} />
+              </button>
+              <SwipeableDrawer
+                anchor={anchor}
+                open={drawerState[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+                onOpen={toggleDrawer(anchor, true)}
+              >
+                {list(anchor)}
+              </SwipeableDrawer>
+            </React.Fragment>
+            <div className="logo_mobile">
+              <NavLink to="/" style={navlinkLogoStyle}>
+                <img src={logo} alt="logo" style={logoStyle} />
+                ShopBee
+              </NavLink>
             </div>
-        );
-    } else {
-        return (
-            <div className="navbar" style={style}>
-                <div className="logo_bigger-screen">
-                    <NavLink to="/" style={navlinkLogoStyle}>
-                        <img src={logo} alt="logo" style={logoStyle} />
-                        ShopBee
-                    </NavLink>
-                </div>
-                {/* {CategoryData.map((item, index) => (
+            <Search />
+            <CartPreview />
+          </div>
+        ))}
+      </div>
+    );
+  } else {
+    return (
+      <div className="navbar" style={style}>
+        <div className="logo_bigger-screen">
+          <NavLink to="/" style={navlinkLogoStyle}>
+            <img src={logo} alt="logo" style={logoStyle} />
+            ShopBee
+          </NavLink>
+        </div>
+        {/* {CategoryData.map((item, index) => (
                     <NavLink
                         to={`/product/${item.categoryName}`}
                         className="nav-link-text"
@@ -140,9 +154,16 @@ export default function Navigation() {
                         {item.categoryName}
                     </NavLink>
                 ))} */}
-                <Search />
-                <CartPreview />
-            </div>
-        );
-    }
+        {auth ? (
+          <>
+            <AccountCircleIcon /> <span>{auth.username}</span>
+          </>
+        ) : (
+          <LoginIcon />
+        )}
+        <Search />
+        <CartPreview />
+      </div>
+    );
+  }
 }
