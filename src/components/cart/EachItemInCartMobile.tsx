@@ -18,6 +18,7 @@ type eachItemProps = {
   price: number;
   name: string;
   currentQuantity: string;
+  shopId : string;
   button: boolean;
   handleChangeQuantity_TextField: (id: string, e: string) => void;
   handleUpdateQuantity_TextField: (
@@ -47,6 +48,7 @@ const EachItemInCartMobile = ({
   handleUpdateQuantity_TextField,
   handleUpdateQuantity_DropDown,
   deleteProduct,
+  shopId,
 }: eachItemProps) => {
   const classes = useStyles();
 
@@ -91,7 +93,7 @@ const EachItemInCartMobile = ({
     <div>
       <Card className={classes.root}>
         <NavLink to={`/product/${category}/${id}`}>
-          <CardMedia className={classes.cover} image={image} />
+          <CardMedia className={classes.cover} image={` ${process.env.REACT_APP_API_BASE_URl_IMAGE}/${image}`} />
         </NavLink>
         <div className={classes.details}>
           <CardContent className={classes.content}>
@@ -100,7 +102,7 @@ const EachItemInCartMobile = ({
               Quantity:
             </div>
             <QuantityPresentationSwitch />
-            <div className="price-in-cart_mobile">{price} kr</div>
+            <div className="price-in-cart_mobile">{price} VND</div>
             <Button
               onClick={() => deleteProduct(id, quantity, price)}
               className="delete-button-in-cart_mobile"

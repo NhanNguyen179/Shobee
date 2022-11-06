@@ -43,7 +43,7 @@ const CartPreviewContentsSwitch = ({ onClick }: CartPreviewContentsProps) => {
                     {productInCart.name}
                   </div>
                   <div className="sub-info-in-cart-preview">
-                    {productInCart.price} kr
+                    {productInCart.price} VND
                   </div>
                   <div className="sub-info-in-cart-preview">
                     Quantity: {productInCart.quantity}

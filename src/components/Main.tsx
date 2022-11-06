@@ -8,7 +8,7 @@ import SignIn from "../view/SignIn";
 import Register from "../view/Register";
 import Navigation from "./layout/Navigation";
 import Footer from "./layout/Footer";
-import Invoice from "../view/Invoice/Invoice";
+import Invoice from "../view/Invoice";
 
 export default function Main() {
   return (

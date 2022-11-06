@@ -16,7 +16,7 @@ const TotalInCart = () => {
         <div style={{ justifyContent: "space-between", display: "flex" }}>
           <div className="sub-total-in-cart">Subtotal:</div>
           <div className="sub-total-in-cart">
-            {state.shoppingCartSubTotal} kr
+            {state.shoppingCartSubTotal} VND
           </div>
         </div>
       </div>

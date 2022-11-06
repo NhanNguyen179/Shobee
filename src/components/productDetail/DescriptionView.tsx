@@ -57,7 +57,7 @@ const DescriptionView = ({
         }
       >
         {description}
-        <div className="product-view-price">{price} kr</div>
+        <div className="product-view-price">{price} VND</div>
         <Quantityselect onChange={handleChange} value={quantity} />
         <AddToCartButton onClick={AddProduct} />
         <div className="product-view-id">ID: {id}</div>

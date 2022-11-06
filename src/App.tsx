@@ -17,7 +17,7 @@ import Main from "./components/Main";
 import { Switch, Route } from "react-router-dom";
 import SignIn from "./view/SignIn";
 import Register from "./view/Register";
-import Invoice from "./view/Invoice/Invoice";
+import Invoice from "./view/Invoice";
 
 export default function App() {
   return (
