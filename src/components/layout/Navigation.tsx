@@ -1,5 +1,4 @@
-/* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import List from "@material-ui/core/List";
@@ -13,14 +12,30 @@ import { CategoryData } from "../../data/CategoryData";
 import CartPreview from "./CartPreview";
 import Search from "./Search";
 import logo from "../../img/Logo/logo.png";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LoginIcon from "@mui/icons-material/Login";
+import { AppContext } from "../../context/Context";
+import userAPI from "../../api/userFunction";
 
 type Anchor = "left";
 
 export default function Navigation() {
+  const { auth, setAuth } = useContext(AppContext);
+
+  const token = localStorage.getItem("jwtToken");
+  useEffect(() => {
+    async function fetchData() {
+      const information = await userAPI.getInforUser(
+        localStorage.getItem("jwtToken")
+      );
+      setAuth(information);
+    }
+    fetchData();
+  }, []);
+
   const [drawerState, setDrawerState] = useState({
     left: false,
   });
-
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
     (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -130,6 +145,15 @@ export default function Navigation() {
             ShopBee
           </NavLink>
         </div>
+        {auth ? (
+          <>
+            <AccountCircleIcon /> <span>{auth.username}</span>
+          </>
+        ) : (
+          <NavLink to="/sign-in">
+            <LoginIcon />
+          </NavLink>
+        )}
         <Search />
         <CartPreview />
       </div>
