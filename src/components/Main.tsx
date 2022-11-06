@@ -1,13 +1,13 @@
 import { Switch, Route } from "react-router-dom";
 import Home from "./home/Home";
-import CategoryPage from "./categoryView/CategoryView";
-import ProductView from "./productView/ProductView";
+import CategoryPage from "./category/CategoryView";
+import ProductView from "./productDetail/ProductView";
 import Cart from "./cart/Cart";
 import SearchResults from "./SearchResults";
 import SignIn from "../view/SignIn";
 import Register from "../view/Register";
-import Navigation from "./common/Navigation";
-import Footer from "./common/Footer";
+import Navigation from "./layout/Navigation";
+import Footer from "./layout/Footer";
 import Invoice from "../view/Invoice/Invoice";
 
 export default function Main() {
@@ -21,11 +21,7 @@ export default function Main() {
           path="/category/:categoryId"
           component={CategoryPage}
         ></Route>
-        <Route
-          exact
-          path="/product/:productId"
-          component={ProductView}
-        ></Route>
+        <Route exact path="/product/:productId" component={ProductView}></Route>
         <Route exact path="/cart" component={Cart}></Route>
         <Route
           exact

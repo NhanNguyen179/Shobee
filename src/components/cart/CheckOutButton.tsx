@@ -1,4 +1,3 @@
-import  OrangeButton  from "../reusableComponents/ButtonOrange";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Button } from "@mui/material";
 export default function CheckOutButton() {

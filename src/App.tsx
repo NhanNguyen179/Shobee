@@ -1,4 +1,3 @@
-import React from "react";
 import "./style/App.css";
 import "./style/Navbar.css";
 import "./style/Home.css";
@@ -14,9 +13,7 @@ import "./style/SearchResults.css";
 import { AppProvider } from "./context/Context";
 import { AppProviderSearch } from "./context/ContextSearch";
 import FooterPositioning from "./context/FooterPositioning";
-import Navigation from "./components/common/Navigation";
 import Main from "./components/Main";
-import Footer from "./components/common/Footer";
 import { Switch, Route } from "react-router-dom";
 import SignIn from "./view/SignIn";
 import Register from "./view/Register";

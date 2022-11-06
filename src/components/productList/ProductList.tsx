@@ -1,9 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { ProductData } from "../../data/ProductData";
-import ProductListPaper from "../reusableComponents/ProductListPaper";
-import ProductListContainer from "../reusableComponents/ProductListContainer";
-import productFunction from "../../api/productFunction";
+import ProductListPaper from "./ProductListPaper";
+import ProductListContainer from "./ProductListContainer";
 
 const ProductList = ({ products }: any) => {
   return (

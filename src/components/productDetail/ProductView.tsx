@@ -3,15 +3,15 @@ import * as React from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../../context/Context";
 import { Types } from "../../context/Reducers";
-import { ProductData } from "../../data/ProductData";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Grid from "@material-ui/core/Grid";
 import NotFoundPage from "../NotFoundPage";
-import ProductViewContainer from "./ProductViewContainer";
 import ImageView from "./ImageView";
 import DescriptionView from "./DescriptionView";
-import orderApi from "../../api/orderApi";
 import productFunction from "../../api/productFunction";
+import ReviewContainer from "../review/ReviewContainer";
+import { Container } from "@material-ui/core";
+import Loading from "../Loading";
 
 type Params = {
   productId: string;
@@ -19,13 +19,15 @@ type Params = {
 
 export default function ProductView() {
   const { productId } = useParams<Params>();
-  const [reviews, setReviews] = React.useState<any>();
   const [product, setProduct] = React.useState<any>();
+  const [loading, setLoading] = React.useState<boolean>(true);
+
   React.useEffect(() => {
-    // Update the document title using the browser API
     const fetch = async () => {
+      setLoading(true);
       const respone: any = await productFunction.getDetailProduct(productId);
       setProduct(respone);
+      setLoading(false);
     };
     fetch();
   }, []);
@@ -72,9 +74,11 @@ export default function ProductView() {
     name: "quantity",
   });
 
+  if (loading) return <Loading />;
+
   if (product && isMobile) {
     return (
-      <ProductViewContainer>
+      <Container fixed>
         <ImageView
           category={product?.category}
           image={product?.imageUrl}
@@ -90,11 +94,11 @@ export default function ProductView() {
           quantity={quantityState.quantity}
           AddProduct={AddProduct}
         />
-      </ProductViewContainer>
+      </Container>
     );
   } else if (product && !isMobile) {
     return (
-      <ProductViewContainer>
+      <Container fixed>
         <Grid
           container
           style={{
@@ -123,7 +127,8 @@ export default function ProductView() {
             />
           </Grid>
         </Grid>
-      </ProductViewContainer>
+        <ReviewContainer productId={"8dcc9380-95ed-4ec2-a43f-9e3eeae7d612"} />
+      </Container>
     );
   } else {
     return (

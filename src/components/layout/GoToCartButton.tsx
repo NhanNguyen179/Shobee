@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { GrayButton } from "../reusableComponents/ButtonGray";
 import { Button } from "@mui/material";
 
 type GoToCartButtonProps = {

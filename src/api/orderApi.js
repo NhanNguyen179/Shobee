@@ -4,9 +4,10 @@ const orderApi = {
   async getProvinces() {
     return await orderConfig.get("provinces/");
   },
-  async getReviewByProductId() {
-    let temp = "8dcc9380-95ed-4ec2-a43f-9e3eeae7d612";
-    return await orderConfig.get(`/sv3/reviews?product=${temp}`);
+  async getReviewByProductId(productId, rating = 0, limit = 20, page = 1) {
+    return await orderConfig.get(
+      `/reviews?product=${productId}&rating=${rating}&limit=${limit}&page=${page}`
+    );
   },
   async getWard(idProvice) {
     return await orderConfig.get(`wards/${idProvice}`);

@@ -1,13 +1,13 @@
 import productApi from "./productConfig";
 
 const productAPI = {
-  async getProducts() {
-    return await productApi.get("products");
-  },
   async getCategory() {
     return await productApi.get("/sv2/categories");
   },
-  async getProduct(categoryId) {
+  async getProducts(categoryId) {
+    if (categoryId === null) {
+      return await productApi.get(`/sv2/products`);
+    }
     return await productApi.get(`/sv2/products?categoryId=${categoryId}`);
   },
   async getDetailProduct(id) {
