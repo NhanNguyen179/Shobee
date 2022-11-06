@@ -12,7 +12,7 @@ productApi.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     const accessToken = localStorage.getItem("jwtToken");
-    if (accessToken) config.headers.Authorization = accessToken;
+    if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },
   function (error) {
