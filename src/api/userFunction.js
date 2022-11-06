@@ -2,7 +2,7 @@ import userApi from "./userApi";
 
 const userAPI = {
   async login(data) {
-    return await userApi.post("/sv1/auth/admin/login/", data);
+    return await userApi.post("/sv1/auth/customer/login/", data);
   },
   async register(data,role) {
     return userApi.post(`/sv1/users/${role}/register_with_roles/`,data);

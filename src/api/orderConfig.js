@@ -9,8 +9,7 @@ const orderConfig = axios.create({
 orderConfig.interceptors.request.use(
   function(config) {
     // Do something before request is sent
-    const accessToken =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjY0NjIwMjksImV4cCI6MTY3NDIzODAyOX0.0raz9tk69u_15HkZ_J4TkWfw6_QbQccWUvSLKj6jA00";
+    const accessToken = localStorage.getItem("jwtToken");
     if (accessToken) config.headers.Authorization = accessToken;
     return config;
   },
