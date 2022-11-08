@@ -2,13 +2,19 @@ import userApi from "./userApi";
 
 const userAPI = {
   async login(data) {
-    return await userApi.post("/sv1/auth/customer/login/", data);
+    return await userApi.post("/sv1/auth/admin/login/", data);
   },
   async register(data,role) {
     return userApi.post(`/sv1/users/${role}/register_with_roles/`,data);
   },
   async getInforUser(jwtToken) {
     return userApi.get(`/sv1/users/me/get_user/`);
+  },
+  async getAllUser() {
+    return userApi.get(`/sv1/users/`);
+  },
+  async changeRole(id) {
+    return await userApi.get(`/sv1/auth/${id}/active_deactive_account_role/`);
   },
   // getUserByUsername(username) {
   //   return userApi.get(`/user/getUserByUsername/${username}`)
