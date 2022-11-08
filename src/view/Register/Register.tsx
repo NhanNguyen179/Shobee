@@ -16,6 +16,7 @@ import { Select, MenuItem } from "@material-ui/core";
 import styled from "styled-components";
 import userFunction from "../../api/userFunction";
 import { useHistory } from "react-router-dom";
+import { CustomTextField } from "../../components/common/CustomTextField";
 
 const Register = () => {
   const [role, setRole] = React.useState();
@@ -25,7 +26,6 @@ const Register = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(data);
     const dataTemp = {
       username: data.get("username"),
       password: data.get("password"),
@@ -35,7 +35,7 @@ const Register = () => {
     console.log(dataTemp);
     try {
       const response: any = await userFunction.register(dataTemp, role);
-      console.log("response",response)
+      console.log("response", response);
       navigated.push("/sign-in");
     } catch (err) {
       console.log(err);
@@ -71,7 +71,7 @@ const Register = () => {
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextInput
+            <CustomTextField
               margin="normal"
               required
               fullWidth
@@ -80,7 +80,7 @@ const Register = () => {
               type="text"
               id="username"
             />
-            <TextInput
+            <CustomTextField
               margin="normal"
               required
               fullWidth
@@ -90,7 +90,7 @@ const Register = () => {
               autoComplete="email"
               autoFocus
             />
-            <TextInput
+            <CustomTextField
               margin="normal"
               required
               fullWidth
@@ -100,7 +100,7 @@ const Register = () => {
               id="password"
               autoComplete="current-password"
             />
-            <TextInput
+            <CustomTextField
               margin="normal"
               required
               fullWidth
@@ -110,8 +110,6 @@ const Register = () => {
               id="cerfiticate"
             />
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
               value={role}
               label="Age"
               onChange={handleChangeRole}
@@ -125,27 +123,6 @@ const Register = () => {
               <MenuItem value="shop">Shop</MenuItem>
               <MenuItem value="customer">User</MenuItem>
             </Select>
-            {role === 1 ? (
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={city}
-                label="Age"
-                onChange={handleChangeCity}
-                style={{
-                  width: "100%",
-                  margin: "20px 0px 20px 0px",
-                  outline: "1px solid green",
-                  height: "50px",
-                }}
-              >
-                <MenuItem value={10}>Da Nang</MenuItem>
-                <MenuItem value={20}>Ho Chi Minh </MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            ) : (
-              <></>
-            )}
             <Button
               type="submit"
               fullWidth
@@ -156,32 +133,10 @@ const Register = () => {
             </Button>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );
 };
 export default Register;
-
-const TextInput = styled(TextField)(() => ({
-  outline: "1px solid green",
-}));
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const theme = createTheme();

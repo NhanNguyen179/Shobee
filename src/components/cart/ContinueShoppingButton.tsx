@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
-import { GrayButton } from "../reusableComponents/ButtonGray";
 import { Button } from "@mui/material";
 
 export default function ContinueShoppingButton() {

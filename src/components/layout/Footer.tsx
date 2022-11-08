@@ -42,9 +42,9 @@ export default function Footer() {
   return (
     <footer className={classes.footer}>
       <Container maxWidth="lg">
-        <Grid container spacing={3} justify="center"></Grid>
+        <Grid container spacing={3} justifyContent="center"></Grid>
         <Grid container direction="column" style={{ margin: "1.2em 0" }}>
-          <Grid item container spacing={2} justify="center">
+          <Grid item container spacing={2} justifyContent="center">
             <Grid item component={"a"} rel="noreferrer noopener" href="/">
               <HomeIcon
                 style={{ color: "#FFA500" }}
@@ -95,7 +95,7 @@ export default function Footer() {
           component={"a"}
           rel="noreferrer noopener"
           href="/"
-          justify="center"
+          justifyContent="center"
           style={{
             textDecoration: "none",
           }}

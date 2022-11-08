@@ -1,6 +1,7 @@
 import Header from "./Header";
 import Category from "./Category";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import HomeProducts from "./HomeProducts";
 
 export default function Home() {
   const isMobile = useMediaQuery("(max-width:599px)");
@@ -12,6 +13,7 @@ export default function Home() {
     >
       <Header />
       <Category />
+      <HomeProducts />
     </div>
   );
 }

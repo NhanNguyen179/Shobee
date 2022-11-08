@@ -1,5 +1,4 @@
-/* eslint-disable jsx-a11y/alt-text */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import List from "@material-ui/core/List";
@@ -13,16 +12,14 @@ import { CategoryData } from "../../data/CategoryData";
 import CartPreview from "./CartPreview";
 import Search from "./Search";
 import logo from "../../img/Logo/logo.png";
-import userAPI from "../../api/userFunction";
-import { AppContext } from "../../context/Context";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LoginIcon from "@mui/icons-material/Login";
+import { AppContext } from "../../context/Context";
+import userAPI from "../../api/userFunction";
+
 type Anchor = "left";
 
 export default function Navigation() {
-  const [drawerState, setDrawerState] = useState({
-    left: false,
-  });
   const { auth, setAuth } = useContext(AppContext);
 
   const token = localStorage.getItem("jwtToken");
@@ -35,6 +32,10 @@ export default function Navigation() {
     }
     fetchData();
   }, []);
+
+  const [drawerState, setDrawerState] = useState({
+    left: false,
+  });
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
     (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -127,7 +128,6 @@ export default function Navigation() {
             <div className="logo_mobile">
               <NavLink to="/" style={navlinkLogoStyle}>
                 <img src={logo} alt="logo" style={logoStyle} />
-                ShopBee
               </NavLink>
             </div>
             <Search />
@@ -145,21 +145,14 @@ export default function Navigation() {
             ShopBee
           </NavLink>
         </div>
-        {/* {CategoryData.map((item, index) => (
-                    <NavLink
-                        to={`/product/${item.categoryName}`}
-                        className="nav-link-text"
-                        key={index}
-                    >
-                        {item.categoryName}
-                    </NavLink>
-                ))} */}
         {auth ? (
           <>
             <AccountCircleIcon /> <span>{auth.username}</span>
           </>
         ) : (
-          <LoginIcon />
+          <NavLink to="/sign-in">
+            <LoginIcon />
+          </NavLink>
         )}
         <Search />
         <CartPreview />

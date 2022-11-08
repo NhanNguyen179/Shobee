@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { ProductData } from "../data/ProductData";
-import ProductListPaper from "./reusableComponents/ProductListPaper";
-import ProductListContainer from "./reusableComponents/ProductListContainer";
+import ProductListPaper from "./productList/ProductListPaper";
+import ProductListContainer from "./productList/ProductListContainer";
 
 type Params = {
   query: string;

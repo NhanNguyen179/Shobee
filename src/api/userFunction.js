@@ -1,11 +1,11 @@
 import userApi from "./userApi";
 
 const userAPI = {
-  async login(data) {
-    return await userApi.post("/sv1/auth/admin/login/", data);
+  async login(data, role) {
+    return await userApi.post(`/sv1/auth/${role}/login/`, data);
   },
-  async register(data,role) {
-    return userApi.post(`/sv1/users/${role}/register_with_roles/`,data);
+  async register(data, role) {
+    return userApi.post(`/sv1/users/${role}/register_with_roles/`, data);
   },
   async getInforUser(jwtToken) {
     return userApi.get(`/sv1/users/me/get_user/`);
