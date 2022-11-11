@@ -14,18 +14,11 @@ import { AppProvider } from "./context/Context";
 import { AppProviderSearch } from "./context/ContextSearch";
 import FooterPositioning from "./context/FooterPositioning";
 import Main from "./components/Main";
-import Footer from "./components/common/Footer";
 import { Switch, Route } from "react-router-dom";
-<<<<<<< Updated upstream
 import SignIn from "./components/SignIn";
 import Register from "./components/Register";
 import Invoice from "./view/Invoice";
 import Dashboard from "./view/DashBoard/Dashboard";
-=======
-import SignIn from "./view/SignIn";
-import Register from "./view/Register";
-import Invoice from "./view/Invoice/Invoice";
->>>>>>> Stashed changes
 
 export default function App() {
   return (

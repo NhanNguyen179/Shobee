@@ -15,10 +15,7 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Switch from "@mui/material/Switch";
-<<<<<<< Updated upstream
-=======
 import productAPI from "../../api/productFunction";
->>>>>>> Stashed changes
 // Generate Order Data
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -68,11 +65,7 @@ export default function Product() {
   const [users, setUsers] = React.useState([]);
   React.useEffect(() => {
     const fetch = async () => {
-<<<<<<< Updated upstream
-      const respone: any = await userAPI.getAllUser();
-=======
       const respone: any = await productAPI.getProducts();
->>>>>>> Stashed changes
       console.log(respone.results);
       setUsers(respone.results);
     };
