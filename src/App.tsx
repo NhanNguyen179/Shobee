@@ -15,11 +15,10 @@ import { AppProviderSearch } from "./context/ContextSearch";
 import FooterPositioning from "./context/FooterPositioning";
 import Main from "./components/Main";
 import { Switch, Route } from "react-router-dom";
-import SignIn from "./view/SignIn";
-import Register from "./view/Register";
+import SignIn from "./components/SignIn";
+import Register from "./components/Register";
 import Invoice from "./view/Invoice";
 import Dashboard from "./view/DashBoard/Dashboard";
-
 
 export default function App() {
   return (
@@ -29,7 +28,6 @@ export default function App() {
           <Switch>
             <Route exact path="/sign-in" component={SignIn}></Route>
             <Route exact path="/dash-board" component={Dashboard}></Route>
-
             <Route exact path="/sign-up" component={Register}></Route>
             <Route exact path="/bill/:id" component={Invoice}></Route>
             <Route path="/" component={Main}></Route>

@@ -1,41 +1,18 @@
-import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import userFunction from "../../api/userFunction";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import Logo from "../../img/Logo/logo.png";
-import { CustomTextField } from "../../components/common/CustomTextField";
-import { CustomCheckBox } from "../../components/common/CustomCheckBox";
-import { CustomSelect } from "../../components/common/CustomSelect";
+import { CustomTextField } from "../common/CustomTextField";
+import { CustomCheckBox } from "../common/CustomCheckBox";
+import { CustomSelect } from "../common/CustomSelect";
 import { useState } from "react";
-import Loading from "../../components/Loading";
-
-const SignInButton = styled(Button)({
-  fontFamily: "Montserrat, sans-serif",
-  display: "inline-block",
-  fontWeight: 700,
-  textDecoration: "none",
-  color: "#fff",
-  textTransform: "uppercase",
-  padding: "13px 23px",
-  background: "#FFA500",
-  fontSize: " 18px",
-  transition: "0.2s all",
-  margin: "20px 0 20px 0",
-  borderRadius: "10px",
-  "@media only screen and (max-width: 480px)": {
-    padding: "7px 15px",
-    fontSize: "14px",
-  },
-  "&:hover": {
-    color: "#FFA500",
-    background: "#211b19",
-  },
-});
+import Loading from "../Loading";
+import { CustomButton } from "../common/CustomTextField copy";
 
 export default function SignIn() {
   const navigated = useHistory();
@@ -69,6 +46,11 @@ export default function SignIn() {
     padding: "5px",
   };
 
+  let navlinkLogoStyle = {
+    display: "flex",
+    alignItems: "center",
+  };
+
   if (loading) return <Loading />;
 
   return (
@@ -82,7 +64,9 @@ export default function SignIn() {
             alignItems: "center",
           }}
         >
-          <img src={Logo} alt="logo" style={logoStyle} />
+          <NavLink to="/" style={navlinkLogoStyle}>
+            <img src={Logo} alt="logo" style={logoStyle} />
+          </NavLink>
           <Typography component="h1" variant="h5">
             Mua hàng ngay
           </Typography>
@@ -119,14 +103,14 @@ export default function SignIn() {
             >
               {error}
             </Typography>
-            <SignInButton
+            <CustomButton
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Đăng nhập
-            </SignInButton>
+            </CustomButton>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

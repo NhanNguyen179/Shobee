@@ -10,10 +10,10 @@ export default function FooterPositioning({ children }: any) {
         className="App"
         style={
           isSmallerThanMobile
-            ? { paddingBottom: "600px" }
+            ? { paddingBottom: "300px" }
             : isMobile
-            ? { paddingBottom: "690px" }
-            : { paddingBottom: "472px" }
+            ? { paddingBottom: "300px" }
+            : { paddingBottom: "172px" }
         }
       >
         {children}

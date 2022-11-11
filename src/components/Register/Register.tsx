@@ -1,27 +1,30 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Select, MenuItem } from "@material-ui/core";
-import styled from "styled-components";
 import userFunction from "../../api/userFunction";
-import { useHistory } from "react-router-dom";
-import { CustomTextField } from "../../components/common/CustomTextField";
+import { NavLink, useHistory } from "react-router-dom";
+import { CustomTextField } from "../common/CustomTextField";
+import { CustomSelect } from "../common/CustomSelect";
+import Logo from "../../img/Logo/logo.png";
+import { CustomButton } from "../common/CustomTextField copy";
 
 const Register = () => {
   const [role, setRole] = React.useState();
-  const [city, setCity] = React.useState();
   const navigated = useHistory();
+
+  let logoStyle = {
+    width: "50px",
+    transition: "400ms ease",
+    borderRadius: "50%",
+    padding: "5px",
+  };
+
+  let navlinkLogoStyle = {
+    display: "flex",
+    alignItems: "center",
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -41,16 +44,9 @@ const Register = () => {
       console.log(err);
     }
   };
-  const handleChangeRole = (event: any) => {
-    setRole(event.target.value);
-  };
-  const handleChangeCity = (event: any) => {
-    setCity(event.target.value);
-  };
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
@@ -59,24 +55,19 @@ const Register = () => {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
+          <NavLink to="/" style={navlinkLogoStyle}>
+            <img src={Logo} alt="logo" style={logoStyle} />
+          </NavLink>
           <Typography component="h1" variant="h5">
-            Register
+            Tham gia với chung tôi
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <CustomTextField
               margin="normal"
               required
               fullWidth
               name="username"
-              label="Username"
+              label="Tên đăng nhập"
               type="text"
               id="username"
             />
@@ -85,7 +76,7 @@ const Register = () => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Email"
               name="email"
               autoComplete="email"
               autoFocus
@@ -95,7 +86,7 @@ const Register = () => {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Mật khẩu"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -105,32 +96,22 @@ const Register = () => {
               required
               fullWidth
               name="certificate"
-              label="Cerfiticate"
+              label="Căn cước công dân"
               type="text"
               id="cerfiticate"
             />
-            <Select
-              value={role}
-              label="Age"
-              onChange={handleChangeRole}
-              style={{
-                width: "100%",
-                margin: "20px 0px 20px 0px",
-                outline: "1px solid green",
-                height: "50px",
-              }}
-            >
-              <MenuItem value="shop">Shop</MenuItem>
-              <MenuItem value="customer">User</MenuItem>
-            </Select>
-            <Button
+            <CustomSelect
+              label="Vai trò"
+              options={["Cửa hàng", "Người dùng"]}
+            />
+            <CustomButton
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Register
-            </Button>
+              Đăng kí
+            </CustomButton>
           </Box>
         </Box>
       </Container>

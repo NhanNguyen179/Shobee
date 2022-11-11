@@ -4,11 +4,8 @@ import CategoryPage from "./category/CategoryView";
 import ProductView from "./productDetail/ProductView";
 import Cart from "./cart/Cart";
 import SearchResults from "./SearchResults";
-import SignIn from "../view/SignIn";
-import Register from "../view/Register";
 import Navigation from "./layout/Navigation";
 import Footer from "./layout/Footer";
-import Invoice from "../view/Invoice";
 
 export default function Main() {
   return (

@@ -64,7 +64,6 @@
   color: #242424;
   text-align: center;
   margin: 15px auto 15px auto;
-  padding-left: 30px;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -100,7 +99,7 @@
 
 /* Navbar common start */
 
-.cart-icon  {
+.cart-icon {
   padding: 0px !important;
   margin: 0px 22px 0px 10px !important;
   color: #242424;
