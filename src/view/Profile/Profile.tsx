@@ -31,10 +31,16 @@ export default function Profile() {
     const data = {
       username: dataTemp.get("username"),
       password: dataTemp.get("password"),
+      phone: dataTemp.get("phone"),
+      address: dataTemp.get("address"),
       gender: dataTemp.get("Giới tính"),
       paymentType: dataTemp.get("paymentType"),
     };
-    console.log("paymentApi", paymentApi);
+    paymentApi.address = data.address;
+    paymentApi.name = data.username;
+    paymentApi.phone_number = data.phone;
+
+    console.log("paymentApi", data);
     console.log("data", JSON.parse(JSON.stringify(paymentApi)));
     await userAPI.updateProfile(JSON.parse(JSON.stringify(paymentApi)));
   };
