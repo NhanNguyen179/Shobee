@@ -81,10 +81,10 @@ export default function Product() {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Tên người dùng: </TableCell>
-            <TableCell>SĐT: </TableCell>
-            <TableCell>Email: </TableCell>
-            <TableCell align="left">CMND : </TableCell>
+            <TableCell>Ảnh: </TableCell>
+            <TableCell>Tên sản phẩm: </TableCell>
+            <TableCell>Giá: </TableCell>
+            {/* <TableCell align="left">CMND : </TableCell>
             <TableCell>
               {" "}
               R&M:{" "}
@@ -93,22 +93,25 @@ export default function Product() {
                 defaultChecked={viewRm}
                 onClick={() => setViewRm(!viewRm)}
               />
-            </TableCell>
+            </TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
           {users?.map((row: any) => (
             <TableRow key={row.id}>
               <TableCell style={{ maxWidth: "100px", overflow: "hidden" }}>
-                {row.profile.name}
+                <img
+                  src={`${process.env.REACT_APP_API_BASE_URl_IMAGE}/${row?.imageUrl}`}
+                  style={{width:'100px',height:'100px'}}
+                ></img>
               </TableCell>
               <TableCell style={{ maxWidth: "100px", overflow: "hidden" }}>
-                {row.profile.phone_number}
+                {row.name}
               </TableCell>
               <TableCell style={{ maxWidth: "100px", overflow: "hidden" }}>
-                {row.profile.email}
+                {row.price}
               </TableCell>
-              <TableCell
+              {/* <TableCell
                 align="left"
                 style={{ maxWidth: "100px", overflow: "hidden" }}
               >{`$${row.profile.certificate}`}</TableCell>
@@ -166,7 +169,7 @@ export default function Product() {
                     </TabPanel>
                   </Box>
                 )}
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           ))}
         </TableBody>

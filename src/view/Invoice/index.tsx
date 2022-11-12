@@ -41,14 +41,16 @@ export default function Invoice() {
       // You can await here
       const voucher = await orderApi.getVoucher();
       console.log("voucher", voucher);
-      setVoucher(voucher.data);
       const objectShip = {
         from_district: Number(auth.profile.district_code),
-        to_district: 1531,
+        to_district: 1804,
       };
       const service = await orderApi.getService(objectShip);
       setService(service.data);
       console.log("service", service);
+      setVoucher(voucher.data);
+   
+     
     }
     fetchData();
   }, []);
@@ -151,10 +153,10 @@ export default function Invoice() {
     console.log("Service", service);
     console.log("voucherId", voucherId);
     console.log("serviceId", serviceId);
-
+    console.log()
     const objectCall = {
-      shopId: "8dcc9380-95ed-4ec2-a43f-9e3eeae7d697",
-      // shopId: invoice?.at(0)?.shopId,
+      // shopId: "8dcc9380-95ed-4ec2-a43f-9e3eeae7d697",
+      shopId: invoice?.at(0)?.shopId,
       address: `${auth.profile.address},${auth.profile.district},${auth.profile.ward},${auth.profile.province}`,
       toName: auth.profile.name,
       toPhone: auth.profile.phone_number,
