@@ -1,12 +1,10 @@
 import * as React from "react";
-import Link from "@mui/material/Link";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Title from "./Title";
-import userApi from "../../api/userApi";
 import userAPI from "../../api/userFunction";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -114,7 +112,10 @@ export default function Product() {
                 align="left"
                 style={{ maxWidth: "100px", overflow: "hidden" }}
               >{`$${row.profile.certificate}`}</TableCell>
-              <TableCell align="left"  style={{ minWidth: "300px", overflow: "hidden" }}>
+              <TableCell
+                align="left"
+                style={{ minWidth: "300px", overflow: "hidden" }}
+              >
                 {viewRm && (
                   <Box sx={{ width: "100%" }}>
                     <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

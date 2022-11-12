@@ -8,11 +8,24 @@ import { NavLink, useHistory } from "react-router-dom";
 import { CustomTextField } from "../common/CustomTextField";
 import { CustomSelect } from "../common/CustomSelect";
 import Logo from "../../img/Logo/logo.png";
-import { CustomButton } from "../common/CustomTextField copy";
+import { CustomButton } from "../common/CustomButton";
+import orderApi from "../../api/orderApi";
 
 const Register = () => {
-  const [role, setRole] = React.useState();
+  const [role, setRole] = React.useState<string>("");
+  const [provinceId, setProvinceId] = React.useState<string>("");
+  const [districtId, setDistrictId] = React.useState<string>("");
+  const [wardId, setWardId] = React.useState<string>("");
   const navigated = useHistory();
+  const [provinces, setProvinces] = React.useState<any>([]);
+
+  React.useEffect(() => {
+    const fetchProvince = async () => {
+      const response: any = await orderApi.getProvinces();
+      setProvinces(response);
+    };
+    fetchProvince();
+  }, []);
 
   let logoStyle = {
     width: "50px",
@@ -29,16 +42,14 @@ const Register = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const dataTemp = {
+    const body = {
       username: data.get("username"),
       password: data.get("password"),
       certificate: data.get("certificate"),
       email: data.get("email"),
     };
-    console.log(dataTemp);
     try {
-      const response: any = await userFunction.register(dataTemp, role);
-      console.log("response", response);
+      await userFunction.register(body, role);
       navigated.push("/sign-in");
     } catch (err) {
       console.log(err);
@@ -75,21 +86,30 @@ const Register = () => {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <CustomTextField
-              margin="normal"
-              required
-              fullWidth
               name="password"
               label="Mật khẩu"
               type="password"
               id="password"
               autoComplete="current-password"
+            />
+            <CustomTextField
+              margin="normal"
+              required
+              fullWidth
+              name="name"
+              label="Tên người dùng"
+              type="text"
+              id="name"
+            />
+            <CustomTextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              autoFocus
             />
             <CustomTextField
               margin="normal"
@@ -102,7 +122,41 @@ const Register = () => {
             />
             <CustomSelect
               label="Vai trò"
-              options={["Cửa hàng", "Người dùng"]}
+              options={[
+                { value: "shop", label: "Cửa hàng" },
+                { value: "customer", label: "Người dùng" },
+              ]}
+              value={role}
+              setValue={setRole}
+            />
+            <CustomSelect
+              label="Thành phố"
+              options={[
+                provinces.map((item: any) => ({
+                  value: item.ProvinceID,
+                  label: item.ProvinceName,
+                })),
+              ]}
+              value={provinceId}
+              setValue={setProvinceId}
+            />
+            <CustomSelect
+              label="Quận"
+              options={[
+                { value: "shop", label: "Cửa hàng" },
+                { value: "customer", label: "Người dùng" },
+              ]}
+              value={districtId}
+              setValue={setDistrictId}
+            />
+            <CustomSelect
+              label="Phường"
+              options={[
+                { value: "shop", label: "Cửa hàng" },
+                { value: "customer", label: "Người dùng" },
+              ]}
+              value={wardId}
+              setValue={setWardId}
             />
             <CustomButton
               type="submit"

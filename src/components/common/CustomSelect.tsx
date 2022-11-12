@@ -24,15 +24,21 @@ const useStyles = makeStyles({
   },
 });
 
+interface option {
+  value: string;
+  label: string;
+}
+
 export const CustomSelect: React.FC<{
   label: string;
-  options: string[];
-}> = ({ label, options }) => {
-  const [option, setOption] = React.useState<string>("");
+  options: option[];
+  value: string;
+  setValue: (option: string) => void;
+}> = ({ label, options, value, setValue }) => {
   const classes = useStyles();
 
   const handleChange = (event: SelectChangeEvent) => {
-    setOption(event.target.value);
+    setValue(event.target.value);
   };
 
   return (
@@ -40,7 +46,7 @@ export const CustomSelect: React.FC<{
       <FormControl margin="normal" fullWidth>
         <InputLabel className={classes.label}>{label}</InputLabel>
         <Select
-          value={option}
+          value={value}
           onChange={handleChange}
           input={<OutlinedInput label={label} />}
           className={classes.menu}
@@ -48,8 +54,8 @@ export const CustomSelect: React.FC<{
           required
         >
           {options.map((item) => (
-            <MenuItem key={item} value={item}>
-              {item}
+            <MenuItem key={item.value} value={item.value}>
+              {item.label}
             </MenuItem>
           ))}
         </Select>

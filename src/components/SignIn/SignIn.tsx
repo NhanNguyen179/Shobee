@@ -12,12 +12,13 @@ import { CustomCheckBox } from "../common/CustomCheckBox";
 import { CustomSelect } from "../common/CustomSelect";
 import { useState } from "react";
 import Loading from "../Loading";
-import { CustomButton } from "../common/CustomTextField copy";
+import { CustomButton } from "../common/CustomButton";
 
 export default function SignIn() {
   const navigated = useHistory();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [role, setRole] = useState<string>("");
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const dataTemp = new FormData(event.currentTarget);
@@ -25,7 +26,6 @@ export default function SignIn() {
       username: dataTemp.get("username"),
       password: dataTemp.get("password"),
     };
-    const role = dataTemp.get("Vai trò") === "Người dùng" ? "customer" : "shop";
     try {
       setLoading(true);
       const response: any = await userFunction.login(data, role);
@@ -93,7 +93,12 @@ export default function SignIn() {
             />
             <CustomSelect
               label="Vai trò"
-              options={["Cửa hàng", "Người dùng"]}
+              options={[
+                { value: "shop", label: "Cửa hàng" },
+                { value: "customer", label: "Người dùng" },
+              ]}
+              value={role}
+              setValue={setRole}
             />
             <CustomCheckBox label="Nhớ tài khoản" />
             <Typography
