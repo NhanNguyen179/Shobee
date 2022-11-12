@@ -41,14 +41,14 @@ interface option {
 }
 
 export const CustomSelect: React.FC<{
-  label?: string;
+  label: string;
   options: option[];
-  value?: string;
-  setValue?: (option: string) => void;
+  value: string;
+  setValue: (option: string) => void;
 }> = ({ label, options, value, setValue }) => {
   const classes = useStyles();
   const handleChange = (event: SelectChangeEvent) => {
-    // setValue(event.target.value);
+    setValue(event.target.value);
   };
 
   return (
