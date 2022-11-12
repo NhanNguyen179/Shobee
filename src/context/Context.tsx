@@ -19,6 +19,7 @@ type ProductType = {
   currentQuantity: string;
   category: string;
   shopId?: any;
+  shopName? : any;
 };
 
 type InitialStateType = {

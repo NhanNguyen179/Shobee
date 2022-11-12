@@ -39,6 +39,7 @@ type ProductType = {
   currentQuantity: string;
   category: string;
   shopId? : string;
+  shopName? : any;
 };
 
 type ProductPayload = {
@@ -53,6 +54,7 @@ type ProductPayload = {
     previousQuantity: string;
     currentQuantity: string;
     category: string;
+    shopName : any;
   };
   [Types.Delete]: {
     id: string;
@@ -116,6 +118,7 @@ export const productReducer = (
             currentQuantity: action.payload.quantity,
             category: action.payload.category,
             shopId : action.payload.shopId,
+            shopName : action.payload.shopName,
           },
         ];
       }

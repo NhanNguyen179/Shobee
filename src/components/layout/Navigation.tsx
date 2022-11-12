@@ -17,7 +17,7 @@ export default function Navigation() {
   useEffect(() => {
     async function fetchData() {
       const information = await userAPI.getInforUser(
-        localStorage.getItem("jwtToken")
+       
       );
       setAuth(information);
     }

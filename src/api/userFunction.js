@@ -14,7 +14,7 @@ const userAPI = {
   async register(data, role) {
     return userApi.post(`/sv1/users/${role}/register_with_roles/`, data);
   },
-  async getInforUser(jwtToken) {
+  async getInforUser() {
     return userApi.get(`/sv1/users/me/get_user/`);
   },
   async getAllUser() {
@@ -23,6 +23,12 @@ const userAPI = {
   async changeRole(id) {
     return await userApi.get(`/sv1/auth/${id}/active_deactive_account_role/`);
   },
+  async paymentType() {
+    return await userApi.get(`/sv1/payments/`);
+  },
+  async updateProfile(data){
+    return await userApi.put(`/sv1/users/me/update_profile/`,data)
+  }
   // getUserByUsername(username) {
   //   return userApi.get(`/user/getUserByUsername/${username}`)
   // },

@@ -34,7 +34,6 @@ export default function ProductView() {
   const isMobile = useMediaQuery("(max-width:599px)");
 
   const { dispatch } = useContext(AppContext);
-
   const AddProduct = () => {
     dispatch({
       type: Types.Add,
@@ -49,6 +48,7 @@ export default function ProductView() {
         currentQuantity: quantityState.quantity,
         category: product.category,
         shopId: product.shop.id,
+        shopName: product.shop.name,
       },
     });
     dispatch({

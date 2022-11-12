@@ -5,10 +5,8 @@ const productAPI = {
     return await productApi.get("/sv2/categories");
   },
   async getProducts(categoryId) {
-    if (categoryId === null) {
-      return await productApi.get(`/sv2/products`);
-    }
-    return await productApi.get(`/sv2/products?categoryId=${categoryId}`);
+    let temp = categoryId ===null ? "": categoryId
+    return await productApi.get(`/sv2/products?categoryId=${temp}`);
   },
   async getDetailProduct(id) {
     return await productApi.get(`/sv2/products/${id}`);

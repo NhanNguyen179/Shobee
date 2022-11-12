@@ -14,8 +14,9 @@ import { useHistory } from "react-router-dom";
 type Props = {
   shopId?: string;
   listProductShop?: any;
+  shopName? : string;
 };
-const ShopCart = ({ shopId, listProductShop }: Props) => {
+const ShopCart = ({ shopId, listProductShop , shopName }: Props) => {
   const isMobile = useMediaQuery("(max-width:599px)");
   const history = useHistory();
   const { dispatch, setInvoice } = useContext(AppContext);
@@ -100,7 +101,7 @@ const ShopCart = ({ shopId, listProductShop }: Props) => {
   return (
     <>
       <WrapShopCardItem>
-        <b>Name Shop: {shopId} </b>
+        <b>Name Shop: {listProductShop.shopName} </b>
         {listProductShop?.map((productInCart: any) => (
           <div key={productInCart.id}>
             <hr />
@@ -148,7 +149,7 @@ export default ShopCart;
 const WrapShopCardItem = styled.div`
   min-width: 1000px;
   min-height: 300px;
-  background-color: green;
+  background-color: #f3b94e;;
   border-top: 1px solid #3e3e3e;
   margin-top: 10px;
   border-radius: 10px;

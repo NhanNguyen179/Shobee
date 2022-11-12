@@ -11,6 +11,7 @@ const ProductInCart = () => {
     arrayShopId.push(item.shopId);
   }
   const uniqueShopId = [...new Set(arrayShopId)];
+  console.log("State Product" ,state.products);
   return (
     <div>
       {uniqueShopId?.map((shopIdUnique) => {

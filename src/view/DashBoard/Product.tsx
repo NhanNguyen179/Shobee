@@ -63,9 +63,9 @@ export default function Product() {
   const [users, setUsers] = React.useState([]);
   React.useEffect(() => {
     const fetch = async () => {
-      const respone: any = await productAPI.getProducts();
-      console.log(respone.results);
-      setUsers(respone.results);
+      const respone: any = await productAPI.getProducts(null);
+      console.log(respone.data);
+      setUsers(respone.data);
     };
     fetch();
   }, []);
