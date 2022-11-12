@@ -1,8 +1,15 @@
+import axios from "axios";
 import userApi from "./userApi";
 
 const userAPI = {
   async login(data, role) {
-    return await userApi.post(`/sv1/auth/${role}/login/`, data);
+    const axiosInstance = axios.create({
+      baseURL: process.env.REACT_APP_API_URL,
+      headers: {
+        "Bypass-Tunnel-Reminder": "true",
+      },
+    });
+    return await axiosInstance.post(`/sv1/auth/${role}/login/`, data);
   },
   async register(data, role) {
     return userApi.post(`/sv1/users/${role}/register_with_roles/`, data);

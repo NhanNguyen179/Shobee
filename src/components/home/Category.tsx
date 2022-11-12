@@ -114,7 +114,7 @@ export default function Home() {
                       <CardMedia
                         component="img"
                         alt="CategoryImage"
-                        image={`${process.env.REACT_APP_API_BASE_URl_IMAGE}/${item.imageUrl}`}
+                        image={`${process.env.REACT_APP_API_BASE_URl_IMAGE}${item.imageUrl}`}
                         loading="lazy"
                       />
                       <CardContent>

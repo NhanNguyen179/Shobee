@@ -29,7 +29,8 @@ export default function SignIn() {
     try {
       setLoading(true);
       const response: any = await userFunction.login(data, role);
-      localStorage.setItem("jwtToken", response.access_token);
+      console.log(response.data);
+      localStorage.setItem("jwtToken", response.data.access_token);
       setLoading(false);
       navigated.push("/");
     } catch (err) {

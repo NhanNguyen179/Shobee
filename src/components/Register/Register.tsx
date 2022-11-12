@@ -18,14 +18,38 @@ const Register = () => {
   const [wardId, setWardId] = React.useState<string>("");
   const navigated = useHistory();
   const [provinces, setProvinces] = React.useState<any>([]);
+  const [districts, setDistricts] = React.useState<any>([]);
+  const [wards, setWards] = React.useState<any>([]);
 
   React.useEffect(() => {
     const fetchProvince = async () => {
       const response: any = await orderApi.getProvinces();
-      setProvinces(response);
+      setProvinces(response.data);
     };
     fetchProvince();
   }, []);
+
+  const fetchDistrict = async (provinceId: string) => {
+    setDistricts([]);
+    const response: any = await orderApi.getDistricts(provinceId);
+    setDistricts(response.data);
+  };
+
+  const fetchWard = async (districtId: string) => {
+    setWards([]);
+    const response: any = await orderApi.getWards(districtId);
+    setWards(response.data);
+  };
+
+  const handleProvinceChange = (provinceId: string) => {
+    setProvinceId(provinceId);
+    fetchDistrict(provinceId);
+  };
+
+  const handleDistrictChange = (districtId: string) => {
+    setDistrictId(districtId);
+    fetchWard(districtId);
+  };
 
   let logoStyle = {
     width: "50px",
@@ -131,30 +155,32 @@ const Register = () => {
             />
             <CustomSelect
               label="Thành phố"
-              options={[
-                provinces.map((item: any) => ({
-                  value: item.ProvinceID,
-                  label: item.ProvinceName,
-                })),
-              ]}
+              options={provinces?.map((item: any) => ({
+                value: item.ProvinceID,
+                label: item.ProvinceName,
+              }))}
               value={provinceId}
-              setValue={setProvinceId}
+              setValue={handleProvinceChange}
             />
             <CustomSelect
               label="Quận"
-              options={[
-                { value: "shop", label: "Cửa hàng" },
-                { value: "customer", label: "Người dùng" },
-              ]}
+              options={districts?.map((item: any) => ({
+                value: item.DistrictID,
+                label: item.DistrictName,
+              }))}
               value={districtId}
-              setValue={setDistrictId}
+              setValue={handleDistrictChange}
             />
             <CustomSelect
               label="Phường"
-              options={[
-                { value: "shop", label: "Cửa hàng" },
-                { value: "customer", label: "Người dùng" },
-              ]}
+              options={
+                wards === null
+                  ? []
+                  : wards.map((item: any) => ({
+                      value: item.WardCode,
+                      label: item.WardName,
+                    }))
+              }
               value={wardId}
               setValue={setWardId}
             />

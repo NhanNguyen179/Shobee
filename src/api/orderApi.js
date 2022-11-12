@@ -9,10 +9,10 @@ const orderApi = {
       `/reviews?product=${productId}&rating=${rating}&limit=${limit}&page=${page}`
     );
   },
-  async getWard(idProvice) {
-    return await orderConfig.get(`wards/${idProvice}`);
+  async getDistricts(idProvice) {
+    return await orderConfig.get(`districts/${idProvice}`);
   },
-  async getDistrict(idWard) {
+  async getWards(idWard) {
     return await orderConfig.get(`wards/${idWard}`);
   },
   getUsersByUsername(username) {
