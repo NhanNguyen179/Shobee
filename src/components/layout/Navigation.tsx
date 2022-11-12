@@ -13,12 +13,9 @@ import userAPI from "../../api/userFunction";
 export default function Navigation() {
   const { auth, setAuth } = useContext(AppContext);
 
-  const token = localStorage.getItem("jwtToken");
   useEffect(() => {
     async function fetchData() {
-      const information = await userAPI.getInforUser(
-       
-      );
+      const information = await userAPI.getInforUser();
       setAuth(information);
     }
     fetchData();

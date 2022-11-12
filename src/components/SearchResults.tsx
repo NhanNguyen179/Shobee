@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import ProductListContainer from "./productList/ProductListContainer";
+import ProductListContainer from "./products/ProductListContainer";
 
 type Params = {
   query: string;

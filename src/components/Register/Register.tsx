@@ -69,8 +69,18 @@ const Register = () => {
     const body = {
       username: data.get("username"),
       password: data.get("password"),
-      certificate: data.get("certificate"),
-      email: data.get("email"),
+      profile: {
+        name: data.get("name"),
+        email: data.get("email"),
+        certificate: data.get("certificate"),
+        district_code: data.get("Quận"),
+        district: districts[districtId].name,
+        province_code: data.get("Tỉnh"),
+        province: provinces[provinceId].name,
+        ward_code: data.get("Phường"),
+        ward: wards[wardId].name,
+        address: data.get("address"),
+      },
     };
     try {
       await userFunction.register(body, role);
@@ -79,6 +89,7 @@ const Register = () => {
       console.log(err);
     }
   };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -183,6 +194,16 @@ const Register = () => {
               }
               value={wardId}
               setValue={setWardId}
+            />
+            <CustomTextField
+              margin="normal"
+              required
+              fullWidth
+              id="address"
+              label="Đia chỉ"
+              name="address"
+              autoComplete="address"
+              autoFocus
             />
             <CustomButton
               type="submit"

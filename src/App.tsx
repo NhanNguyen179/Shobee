@@ -33,7 +33,6 @@ export default function App() {
             <Route exact path="/bill/:id" component={Invoice}></Route>
             <Route path="/profile" component={Profile}></Route>
             <Route path="/" component={Main}></Route>
-
           </Switch>
         </FooterPositioning>
       </AppProviderSearch>

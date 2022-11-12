@@ -65,7 +65,7 @@ export const CustomSelect: React.FC<{
           MenuProps={MenuProps}
         >
           {options.length === 0 ? (
-            <></>
+            <MenuItem value="">Đang tải...</MenuItem>
           ) : (
             options.map((item) => (
               <MenuItem key={item.value} value={item.value}>

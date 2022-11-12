@@ -1,5 +1,3 @@
-import ProductListPaper from "./ProductListPaper";
-import ProductListContainer from "./ProductListContainer";
 import {
   Card,
   CardActionArea,
@@ -9,18 +7,27 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
-  card: {
-    borderRadius: "10px",
-    transition: "0.3s",
+  container: {
+    minHeight: "80vh",
+    padding: "20px 0",
+  },
+  item: {
+    boxSizing: "border-box",
     "&:hover": {
       "& img": {
         transform: "scale(1.1)",
       },
-      backgroundColor: "gray",
+      borderRadius: "10px",
+      backgroundColor: "#FFA500",
     },
-    margin: "10px",
+    padding: "0.3125rem",
+  },
+  card: {
+    borderRadius: "10px",
+    transition: "0.3s",
   },
 
   media: {
@@ -43,22 +50,18 @@ const useStyles = makeStyles((theme) => ({
 const ProductList = ({ products }: any) => {
   const styles = useStyles();
   return (
-    // <ProductListContainer>
-    //   {products.map((product: any) => (
-    //     <ProductListPaper
-    //       key={product.id}
-    //       id={product.id}
-    //       name={product.name}
-    //       price={product.price}
-    //       image={product.imageUrl}
-    //     />
-    //   ))}
-    // </ProductListContainer>
-    <Grid container style={{ minHeight: "80vh" }}>
+    <Grid container className={styles.container}>
       {products.map((product: any) => (
-        <Grid item xs={6} sm={4} md={2}>
-          <Card className={styles.card}>
-            <CardActionArea>
+        <Grid
+          key={product.id}
+          item
+          xs={6}
+          sm={3}
+          md={2}
+          className={styles.item}
+        >
+          <NavLink to={`/product/${product.id}`}>
+            <Card className={styles.card}>
               <CardMedia
                 component="img"
                 alt={`${product.name}`}
@@ -76,7 +79,6 @@ const ProductList = ({ products }: any) => {
                   {product.name}
                 </Typography>
                 <Typography
-                  variant="body2"
                   color="textSecondary"
                   component="p"
                   className={styles.price}
@@ -84,8 +86,8 @@ const ProductList = ({ products }: any) => {
                   {product.price} đ
                 </Typography>
               </CardContent>
-            </CardActionArea>
-          </Card>
+            </Card>
+          </NavLink>
         </Grid>
       ))}
     </Grid>

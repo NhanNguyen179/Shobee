@@ -1,7 +1,6 @@
 {
-  "name": "succulents-site",
+  "name": "ecommerce",
   "version": "0.1.0",
-  "homepage": "https://misakowatanabe.github.io/succulents-site",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",

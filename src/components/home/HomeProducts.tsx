@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ProductList from "../productList/ProductList";
+import ProductList from "../products/ProductList";
 import productFunction from "../../api/productFunction";
 import { Container, makeStyles } from "@material-ui/core";
 import NoResultPage from "../NoResultPage";
@@ -77,7 +77,7 @@ export default function HomeProducts() {
         ) : (
           <ProductList products={products} />
         )}
-        <NavLink className={classes.more} to={`/`}>
+        <NavLink className={classes.more} to={`/products`}>
           Xem thêm
         </NavLink>
       </div>

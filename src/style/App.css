@@ -12,6 +12,10 @@ _bigger-screen: 600px-
   margin: 0px auto;
 }
 
+iframe {
+  pointer-events: none;
+}
+
 p {
   font-family: "Roboto", sans-serif;
 }

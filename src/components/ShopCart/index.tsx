@@ -1,6 +1,4 @@
 import { Button, useMediaQuery } from "@material-ui/core";
-import { stat } from "fs";
-import React, { useState } from "react";
 import { useContext } from "react";
 import { AppContext } from "../../context/Context";
 import EachItemInCartBiggerScreen from "../cart/EachItemInCartBiggerScreen";
@@ -8,15 +6,14 @@ import EachItemInCartMobile from "../cart/EachItemInCartMobile";
 
 import { Types } from "../../context/Reducers";
 import styled from "styled-components";
-import CheckOutButton from "../cart/CheckOutButton";
-import Invoice from "../../view/Invoice";
+
 import { useHistory } from "react-router-dom";
 type Props = {
   shopId?: string;
   listProductShop?: any;
-  shopName? : string;
+  shopName?: string;
 };
-const ShopCart = ({ shopId, listProductShop , shopName }: Props) => {
+const ShopCart = ({ shopId, listProductShop, shopName }: Props) => {
   const isMobile = useMediaQuery("(max-width:599px)");
   const history = useHistory();
   const { dispatch, setInvoice } = useContext(AppContext);
@@ -109,7 +106,7 @@ const ShopCart = ({ shopId, listProductShop , shopName }: Props) => {
               <EachItemInCartMobile
                 category={productInCart.category}
                 id={productInCart.id}
-                image={productInCart.image} 
+                image={productInCart.image}
                 quantity={productInCart.quantity}
                 price={productInCart.price}
                 name={productInCart.name}
@@ -149,7 +146,7 @@ export default ShopCart;
 const WrapShopCardItem = styled.div`
   min-width: 1000px;
   min-height: 300px;
-  background-color: #f3b94e;;
+  background-color: #f3b94e;
   border-top: 1px solid #3e3e3e;
   margin-top: 10px;
   border-radius: 10px;
