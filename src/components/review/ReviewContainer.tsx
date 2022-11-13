@@ -27,7 +27,7 @@ export default function ReviewContainer(child: any) {
   const [ratingSearch, setRatingSearch] = useState(0);
   const [page, setPage] = useState(1);
   const [totalRating, setTotalRating] = useState(0);
-  const [numOfPage, setNumOfPage] = useState(0);
+  const [numOfPage, setNumOfPage] = useState(1);
 
   useEffect(() => {
     async function fetch() {
