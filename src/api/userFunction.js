@@ -12,7 +12,13 @@ const userAPI = {
     return await axiosInstance.post(`/sv1/auth/${role}/login/`, data);
   },
   async register(data, role) {
-    return userApi.post(`/sv1/users/${role}/register_with_roles/`, data);
+    const axiosInstance = axios.create({
+      baseURL: process.env.REACT_APP_API_URL,
+      headers: {
+        "Bypass-Tunnel-Reminder": "true",
+      },
+    });
+    return axiosInstance.post(`/sv1/users/${role}/register_with_roles/`, data);
   },
   async getInforUser() {
     return userApi.get(`/sv1/users/me/get_user/`);
@@ -26,9 +32,9 @@ const userAPI = {
   async paymentType() {
     return await userApi.get(`/sv1/payments/`);
   },
-  async updateProfile(data){
-    return await userApi.put(`/sv1/users/me/update_profile/`,data)
-  }
+  async updateProfile(data) {
+    return await userApi.put(`/sv1/users/me/update_profile/`, data);
+  },
   // getUserByUsername(username) {
   //   return userApi.get(`/user/getUserByUsername/${username}`)
   // },

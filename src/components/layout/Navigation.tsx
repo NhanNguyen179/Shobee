@@ -44,6 +44,11 @@ export default function Navigation() {
     display: "flex",
     alignItems: "center",
   };
+  let navlinkStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
 
   const isMobile = useMediaQuery("(max-width:599px)");
 
@@ -82,7 +87,9 @@ export default function Navigation() {
         </div>
         {auth ? (
           <>
-            <AccountCircleIcon /> <span>{auth.username}</span>
+            <NavLink to="/profile" style={navlinkStyle}>
+              <AccountCircleIcon /> <span>{auth.profile.name}</span>
+            </NavLink>
           </>
         ) : (
           <NavLink to="/sign-in">

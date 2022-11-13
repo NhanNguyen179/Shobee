@@ -30,7 +30,7 @@ const ImageView = ({ category, image, name }: eachItemProps) => {
     <div>
       <div className="product-view-category">
         <NavLink to={`/`} style={{ textDecoration: "underline" }}>
-          Home
+          Trang chủ
         </NavLink>
         <span> &gt; </span>
         <NavLink
@@ -40,9 +40,7 @@ const ImageView = ({ category, image, name }: eachItemProps) => {
           {category}
         </NavLink>
       </div>
-      {isMobile && (
-        <div className="product-view-name_mobile">{name}</div>
-      )}
+      {isMobile && <div className="product-view-name_mobile">{name}</div>}
       <ImageGallery
         items={images}
         showThumbnails={true}

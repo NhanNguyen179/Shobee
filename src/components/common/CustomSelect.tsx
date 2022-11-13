@@ -36,27 +36,34 @@ const useStyles = makeStyles({
 });
 
 interface option {
-  value: string;
+  value: any;
   label: string;
 }
 
 export const CustomSelect: React.FC<{
   label: string;
   options: option[];
-  value: string;
-  setValue: (option: string) => void;
-}> = ({ label, options, value, setValue }) => {
+  value: any;
+  setValue: (option: any) => void;
+  defaultValue?: any;
+}> = ({ label, options, value, setValue, defaultValue }) => {
   const classes = useStyles();
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value);
   };
-
+  React.useEffect(() => {
+    if (defaultValue) {
+      setValue(defaultValue);
+    }
+  }, []);
   return (
     <div>
       <FormControl margin="normal" fullWidth>
         <InputLabel className={classes.label}>{label}</InputLabel>
         <Select
-          value={options.length === 0 ? "" : value}
+          value={
+            options.length === 0 ? "" : value !== "" ? value : defaultValue
+          }
           onChange={handleChange}
           input={<OutlinedInput label={label} />}
           className={classes.menu}

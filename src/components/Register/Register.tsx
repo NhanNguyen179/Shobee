@@ -13,12 +13,12 @@ import orderApi from "../../api/orderApi";
 
 const Register = () => {
   const [role, setRole] = React.useState<string>("");
-  const [provinceId, setProvinceId] = React.useState<string>("");
-  const [districtId, setDistrictId] = React.useState<string>("");
-  const [wardId, setWardId] = React.useState<string>("");
   const navigated = useHistory();
+  const [provinceId, setProvinceId] = React.useState<string>("");
   const [provinces, setProvinces] = React.useState<any>([]);
+  const [districtId, setDistrictId] = React.useState<string>("");
   const [districts, setDistricts] = React.useState<any>([]);
+  const [wardId, setWardId] = React.useState<string>("");
   const [wards, setWards] = React.useState<any>([]);
 
   React.useEffect(() => {
@@ -66,6 +66,7 @@ const Register = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    console.log(districts);
     const body = {
       username: data.get("username"),
       password: data.get("password"),
@@ -74,17 +75,23 @@ const Register = () => {
         email: data.get("email"),
         certificate: data.get("certificate"),
         district_code: data.get("Quận"),
-        district: districts[districtId].name,
+        district: districts.find(
+          (district: any) => district.districtId === districtId
+        ).name,
         province_code: data.get("Tỉnh"),
-        province: provinces[provinceId].name,
+        province: provinces.find(
+          (province: any) => province.provinceId === provinceId
+        ).name,
         ward_code: data.get("Phường"),
-        ward: wards[wardId].name,
+        ward: wards.find((ward: any) => ward.wardId === wardId).name,
         address: data.get("address"),
       },
     };
     try {
-      await userFunction.register(body, role);
-      navigated.push("/sign-in");
+      const response: any = await userFunction.register(body, role);
+      if (response.status === 200) {
+        navigated.push("/sign-in");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -167,8 +174,8 @@ const Register = () => {
             <CustomSelect
               label="Thành phố"
               options={provinces?.map((item: any) => ({
-                value: item.ProvinceID,
-                label: item.ProvinceName,
+                value: item.provinceId,
+                label: item.name,
               }))}
               value={provinceId}
               setValue={handleProvinceChange}
@@ -176,8 +183,8 @@ const Register = () => {
             <CustomSelect
               label="Quận"
               options={districts?.map((item: any) => ({
-                value: item.DistrictID,
-                label: item.DistrictName,
+                value: item.districtId,
+                label: item.name,
               }))}
               value={districtId}
               setValue={handleDistrictChange}
@@ -188,8 +195,8 @@ const Register = () => {
                 wards === null
                   ? []
                   : wards.map((item: any) => ({
-                      value: item.WardCode,
-                      label: item.WardName,
+                      value: item.wardId,
+                      label: item.name,
                     }))
               }
               value={wardId}

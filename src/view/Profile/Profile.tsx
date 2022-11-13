@@ -1,50 +1,66 @@
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import userFunction from "../../api/userFunction";
 import { NavLink, useHistory } from "react-router-dom";
 import Logo from "../../img/Logo/logo.png";
 import React, { useState } from "react";
 import { CustomTextField } from "../../components/common/CustomTextField";
 import { CustomSelect } from "../../components/common/CustomSelect";
-import { CustomCheckBox } from "../../components/common/CustomCheckBox";
 import { CustomButton } from "../../components/common/CustomButton";
 import Loading from "../../components/Loading";
-import { Avatar, MenuItem, Select, TextField } from "@material-ui/core";
 import userAPI from "../../api/userFunction";
+import { Avatar, Box, Grid, IconButton } from "@mui/material";
+import orderApi from "../../api/orderApi";
 
 export default function Profile() {
   const navigated = useHistory();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [profile, setProfile] = useState<any>();
-  const [paymentType, setPaymentType] = useState<any>();
+  const [paymentType, setPaymentType] = useState<any>([]);
   const [paymentValue, setPaymentValue] = useState<any>();
-  const [valuePaymentNumber, setValuePaymentNumber] = useState<any>();
+  const [valuePaymentNumber, setValuePaymentNumber] = useState<any>("");
   const [paymentApi, setPaymentApi] = useState<any>();
+  const [provinceId, setProvinceId] = React.useState<string>("");
+  const [provinces, setProvinces] = React.useState<any>([]);
+  const [districtId, setDistrictId] = React.useState<string>("");
+  const [districts, setDistricts] = React.useState<any>([]);
+  const [wardId, setWardId] = React.useState<string>("");
+  const [wards, setWards] = React.useState<any>([]);
+  const [gender, setGender] = useState<string>("");
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const dataTemp = new FormData(event.currentTarget);
     const data = {
-      username: dataTemp.get("username"),
-      password: dataTemp.get("password"),
-      phone: dataTemp.get("phone"),
+      name: dataTemp.get("name"),
+      phone_number: dataTemp.get("phone_number"),
       address: dataTemp.get("address"),
       gender: dataTemp.get("Giới tính"),
       paymentType: dataTemp.get("paymentType"),
+      paymentNumber: dataTemp.get("paymentNumber"),
+      province_code: provinceId,
+      district_code: districtId,
+      ward_code: wardId,
+      age: dataTemp.get("age"),
     };
+
+    paymentApi.name = data.name;
     paymentApi.address = data.address;
-    paymentApi.name = data.username;
-    paymentApi.phone_number = data.phone;
+    paymentApi.phone_number = data.phone_number;
+    paymentApi.gender = data.gender;
+    paymentApi.province_code = data.province_code;
+    paymentApi.district_code = data.district_code;
+    paymentApi.ward_code = data.ward_code;
 
     console.log("paymentApi", data);
     console.log("data", JSON.parse(JSON.stringify(paymentApi)));
     await userAPI.updateProfile(JSON.parse(JSON.stringify(paymentApi)));
   };
   React.useEffect(() => {
+    const fetchProvince = async () => {
+      const response: any = await orderApi.getProvinces();
+      setProvinces(response.data);
+    };
+    fetchProvince();
     const fetch = async () => {
       setLoading(true);
       const respone: any = await userAPI.getInforUser();
@@ -70,11 +86,11 @@ export default function Profile() {
   };
 
   if (loading) return <Loading />;
-  const handleChangePayment = (e: any) => {
-    setPaymentValue(e.target.value);
+  const handleChangePayment = (paymentValue: any) => {
+    setPaymentValue(paymentValue);
     let checkId = false;
     for (const element of profile?.profile_payment_type) {
-      if (element.payment_type.id === e.target.value) {
+      if (element.payment_type.id === paymentValue) {
         checkId = true;
 
         setValuePaymentNumber(element.payment_number);
@@ -84,6 +100,29 @@ export default function Profile() {
       setValuePaymentNumber("");
     }
   };
+
+  const fetchDistrict = async (provinceId: string) => {
+    setDistricts([]);
+    const response: any = await orderApi.getDistricts(provinceId);
+    setDistricts(response.data);
+  };
+
+  const fetchWard = async (districtId: string) => {
+    setWards([]);
+    const response: any = await orderApi.getWards(districtId);
+    setWards(response.data);
+  };
+
+  const handleProvinceChange = (provinceId: string) => {
+    setProvinceId(provinceId);
+    fetchDistrict(provinceId);
+  };
+
+  const handleDistrictChange = (districtId: string) => {
+    setDistrictId(districtId);
+    fetchWard(districtId);
+  };
+
   const onChangeValuePayment = (e: any) => {
     let checkId = false;
     setValuePaymentNumber(e.target.value);
@@ -108,8 +147,8 @@ export default function Profile() {
     }
   };
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+    <Grid container>
+      <Container component="main" maxWidth="sm">
         <Box
           sx={{
             marginTop: 8,
@@ -118,163 +157,207 @@ export default function Profile() {
             alignItems: "center",
           }}
         >
-          <NavLink to="/" style={navlinkLogoStyle}>
-            <Avatar alt="Remy Sharp" src={Logo} />
-          </NavLink>
-
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <Grid container spacing={3}>
-              <Grid item md={12}>
-                <CustomTextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="name"
-                  label="Tên"
-                  name="username"
-                  autoComplete="name"
-                  autoFocus
-                  defaultValue={profile?.name}
-                />
-              </Grid>{" "}
-              <Grid item md={6}>
-                {" "}
-                {/* <CustomSelect
-                  label="Giới tính"
-                  options={["Nam", "Nữ"]}
-                  value={profile?.gender}
-
-                /> */}
-              </Grid>{" "}
-              <Grid item md={6}>
-                <CustomTextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="phone"
-                  label="Phone"
-                  name="phone"
-                  autoComplete="phone"
-                  autoFocus
-                  defaultValue={profile?.phone_number}
-                />{" "}
-              </Grid>{" "}
-              <Grid item md={6}>
-                {" "}
-                <CustomTextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  defaultValue={profile?.email}
-                />
-              </Grid>{" "}
-              <Grid item md={6}>
-                {" "}
-                <CustomTextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="certificate"
-                  label="CMND/CCCD"
-                  name="certificate"
-                  autoComplete="certificate"
-                  autoFocus
-                  defaultValue={profile?.certificate}
-                />
-              </Grid>{" "}
-              <Grid item md={6}>
-                {" "}
-                {/* <CustomSelect
-                  label="Vai trò"
-                  options={["Cửa hàng", "Người dùng"]}
-                /> */}
-              </Grid>
-            </Grid>
-            <Grid item md={4}>
-              {/* <CustomSelect
-                label="Thành phố"
-                options={["Cửa hàng", "Người dùng"]}
-              /> */}
-            </Grid>
-            <Grid item md={4}>
-              {/* <CustomSelect label="Quận" options={["Cửa hàng", "Người dùng"]} /> */}
-            </Grid>
-            <Grid item md={4}>
-              {/* <CustomSelect
-                label="Phường"
-                options={["Cửa hàng", "Người dùng"]}
-              /> */}
-            </Grid>
-            <Grid item md={12}>
+          {/* <NavLink to="/" style={navlinkLogoStyle}>
+            <img src={Logo} alt="logo" style={logoStyle} />
+          </NavLink> */}
+          {/* <IconButton
+            color="primary"
+            aria-label="upload picture"
+            component="label"
+          >
+            <image
+              src="/images/example.jpg"
+              style={{
+                margin: "10px",
+                width: "60px",
+                height: "60px",
+              }}
+              type="file"
+              accept="image/*"
+              
+            />
+          </IconButton> */}
+          <Typography component="h1" variant="h5">
+            Thông tin cá nhân
+          </Typography>
+        </Box>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Grid item xs={12}>
+            <CustomTextField
+              margin="normal"
+              required
+              fullWidth
+              name="name"
+              label="Tên người dùng"
+              type="text"
+              id="name"
+              defaultValue={profile?.name}
+            />
+          </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
               <CustomTextField
                 margin="normal"
                 required
                 fullWidth
-                id="address"
-                label="Địa chỉ"
-                name="address"
-                autoFocus
-                defaultValue={profile?.address}
+                name="phone_number"
+                label="Số điện thoại"
+                type="text"
+                id="phone_number"
+                autoComplete="current-password"
+                defaultValue={profile?.phone_number}
               />
             </Grid>
-            <Grid item md={12}>
-              {" "}
-              <Select
+            <Grid item xs={6}>
+              <CustomSelect
+                label="Giới tính"
+                options={[
+                  { value: true, label: "Nam" },
+                  { value: false, label: "Nữ" },
+                ]}
+                value={gender}
+                setValue={setGender}
+                defaultValue={profile?.gender}
+              />
+            </Grid>
+          </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+              <CustomTextField
+                margin="normal"
+                required
+                fullWidth
+                id="age"
+                label="Tuổi"
+                name="age"
+                autoComplete="age"
+                autoFocus
+                defaultValue={profile?.age}
+              />
+            </Grid>
+            <Grid item xs={8}>
+              <CustomTextField
+                margin="normal"
+                required
+                fullWidth
+                name="certificate"
+                label="Căn cước công dân"
+                type="text"
+                id="cerfiticate"
+                defaultValue={profile?.certificate}
+              />
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <CustomTextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              defaultValue={profile?.email}
+            />
+          </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+              <CustomSelect
+                label="Thành phố"
+                options={provinces?.map((item: any) => ({
+                  value: item.provinceId,
+                  label: item.name,
+                }))}
+                value={provinceId}
+                setValue={handleProvinceChange}
+                defaultValue={profile?.province_code}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <CustomSelect
+                label="Quận"
+                options={districts?.map((item: any) => ({
+                  value: item.districtId,
+                  label: item.name,
+                }))}
+                value={districtId}
+                setValue={handleDistrictChange}
+                defaultValue={profile?.district_code}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <CustomSelect
+                label="Phường"
+                options={
+                  wards === null
+                    ? []
+                    : wards.map((item: any) => ({
+                        value: item.wardId,
+                        label: item.name,
+                      }))
+                }
+                value={wardId}
+                setValue={setWardId}
+                defaultValue={profile?.ward_code}
+              />
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <CustomTextField
+              margin="normal"
+              required
+              fullWidth
+              id="address"
+              label="Đia chỉ"
+              name="address"
+              autoComplete="address"
+              autoFocus
+              defaultValue={profile?.address}
+            />
+          </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+              <CustomSelect
                 value={paymentValue}
-                name="paymentType"
-                onChange={handleChangePayment}
-              >
-                {paymentType?.map((item: any) => (
-                  <MenuItem key={item.id} value={item.id}>
-                    {item.payment_name}
-                  </MenuItem>
-                ))}
-              </Select>
-              <TextField
+                label="Phương thức"
+                setValue={handleChangePayment}
+                options={
+                  paymentType === null
+                    ? []
+                    : paymentType?.map((item: any) => ({
+                        value: item.id,
+                        label: item.payment_name,
+                      }))
+                }
+                defaultValue={profile?.profile_payment_type[0]?.payment_type.id}
+              />
+            </Grid>
+            <Grid item xs={8}>
+              <CustomTextField
                 value={valuePaymentNumber}
                 onChange={onChangeValuePayment}
-              >
-                ABC
-              </TextField>
+                margin="normal"
+                fullWidth
+                id="paymentNumber"
+                name="paymentNumber"
+                autoComplete="paymentNumber"
+                defaultValue={
+                  profile?.profile_payment_type[0]?.payment_number ?? ""
+                }
+              />
             </Grid>
-
-            <Typography
-              component="h1"
-              variant="h6"
-              style={{ color: "red", textAlign: "center" }}
-            >
-              {error}
-            </Typography>
-            <CustomButton
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Cập nhập
-            </CustomButton>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Quên mật khẩu?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/sign-up" variant="body2">
-                  Không có tài khoản? Đăng kí ngay
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
+          </Grid>
+          <CustomButton
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Cập nhật
+          </CustomButton>
         </Box>
       </Container>
-    </ThemeProvider>
+    </Grid>
   );
 }
-
-const theme = createTheme();
