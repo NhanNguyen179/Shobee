@@ -19,16 +19,16 @@ const orderApi = {
     return orderConfig.get(`/user/getUsersByUsername/${username}`);
   },
   async getVoucher() {
-    return await orderConfig.get(`/sv3/vouchers/`);
+    return await orderConfig.get(`/vouchers/`);
   },
   async getFeeShip(data) {
-    return await orderConfig.post(`/sv3/fee/`, data);
+    return await orderConfig.post(`/fee/`, data);
   },
   async getService(data) {
-    return await orderConfig.post(`sv3/services`, data);
+    return await orderConfig.post(`/services`, data);
   },
   async createOrder(data) {
-    return await orderConfig.post(`/sv3/orders/`, data);
+    return await orderConfig.post(`/orders/`, data);
   },
   async getInformationShop(idShop) {
     return await orderConfig.post(`/sv1/users/${idShop}`);

@@ -6,6 +6,7 @@ import SearchResults from "./SearchResults";
 import Navigation from "./layout/Navigation";
 import Footer from "./layout/Footer";
 import ProductsPage from "./products/ProductsPage";
+import Profile from "../view/Profile";
 
 export default function Main() {
   return (
@@ -16,6 +17,7 @@ export default function Main() {
         <Route exact path="/products" component={ProductsPage}></Route>
         <Route exact path="/product/:productId" component={ProductView}></Route>
         <Route exact path="/cart" component={Cart}></Route>
+        <Route path="/profile" component={Profile}></Route>
         <Route
           exact
           path="/search/query=:query"
