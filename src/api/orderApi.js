@@ -33,6 +33,11 @@ const orderApi = {
   async getInformationShop(idShop) {
     return await orderConfig.post(`/sv1/users/${idShop}`);
   },
+  // manage order
+  async searchOrderByStatus(status,page){
+    return await orderConfig.get(`/sv3/orders/limit=20&page=${page}&status=${status}`)
+  },
+
 };
 
 export default orderApi;

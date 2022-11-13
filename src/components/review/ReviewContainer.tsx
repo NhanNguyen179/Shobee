@@ -130,7 +130,7 @@ export default function ReviewContainer(child: any) {
         }}
       >
         <Pagination
-          count={20}
+          count={numOfPage}
           defaultPage={1}
           color={"primary"}
           variant="outlined"
