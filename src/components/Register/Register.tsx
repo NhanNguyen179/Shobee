@@ -195,9 +195,9 @@ const Register = () => {
                 wards === null
                   ? []
                   : wards.map((item: any) => ({
-                      value: item.wardId,
-                      label: item.name,
-                    }))
+                    value: item.wardId,
+                    label: item.name,
+                  }))
               }
               value={wardId}
               setValue={setWardId}

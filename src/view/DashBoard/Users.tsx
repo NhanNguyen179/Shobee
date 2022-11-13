@@ -53,7 +53,7 @@ function preventDefault(event: React.MouseEvent) {
   event.preventDefault();
 }
 
-export default function Orders() {
+export default function Users() {
   const [value, setValue] = React.useState(0);
   const [checkSwitch, setCheckSwitch] = React.useState(false);
   const [viewRm, setViewRm] = React.useState(false);
@@ -113,7 +113,7 @@ export default function Orders() {
                 align="left"
                 style={{ maxWidth: "100px", overflow: "hidden" }}
               >{`$${row.profile.certificate}`}</TableCell>
-              <TableCell align="left"  style={{ minWidth: "300px", overflow: "hidden" }}>
+              <TableCell align="left" style={{ minWidth: "300px", overflow: "hidden" }}>
                 {viewRm && (
                   <Box sx={{ width: "100%" }}>
                     <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

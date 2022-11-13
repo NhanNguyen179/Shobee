@@ -28,7 +28,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import { mainListItems, secondaryListItems } from "./ListItems";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
-import Orders from "./Orders";
+import Users from "./Users";
 import Product from "./Product";
 
 function Copyright(props: any) {
@@ -167,7 +167,7 @@ function DashboardContent() {
               </ListItemIcon>
               <ListItemText primary="Account" />
             </ListItemButton>
-            <ListItemButton onClick={() =>setPageView(2)}>
+            <ListItemButton onClick={() => setPageView(2)}>
               <ListItemIcon>
                 <ShoppingCartIcon />
               </ListItemIcon>
@@ -201,7 +201,7 @@ function DashboardContent() {
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  {pageView === 1 && <Orders />}
+                  {pageView === 1 && <Users />}
                   {pageView === 2 && <Product />}
                 </Paper>
               </Grid>

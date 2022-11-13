@@ -14,6 +14,8 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Switch from "@mui/material/Switch";
 import productAPI from "../../api/productFunction";
+import { CustomSelect } from "../../components/common/CustomSelect";
+
 // Generate Order Data
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -53,6 +55,7 @@ function preventDefault(event: React.MouseEvent) {
 }
 
 export default function Product() {
+  const [active, setActive] = React.useState<String>("")
   const [value, setValue] = React.useState(0);
   const [checkSwitch, setCheckSwitch] = React.useState(false);
   const [viewRm, setViewRm] = React.useState(false);
@@ -60,49 +63,50 @@ export default function Product() {
     setValue(newValue);
   };
 
-  const [users, setUsers] = React.useState([]);
+  const [products, setProducts] = React.useState([]);
   React.useEffect(() => {
     const fetch = async () => {
       const respone: any = await productAPI.getProducts(null);
-      console.log(respone.data);
-      setUsers(respone.data);
+      setProducts(respone.data);
     };
     fetch();
   }, []);
-  const handleToggle = (id: string) => {
-    setCheckSwitch(true);
-    userAPI.changeRole(id).then((rs) => {
-      setCheckSwitch(false);
-    });
+  const fetchProduct = async (active: string) => {
+    setProducts([]);
+    const respone: any = await productAPI.getProductActive(active);
+    setProducts(respone.data);
+  }
+  const handleActiveChange = (active: string) => {
+    setActive(active);
+    fetchProduct(active);
   };
   return (
     <React.Fragment>
       <Title>Product</Title>
+      <CustomSelect
+        label="Kich hoat"
+        options={[
+          { value: "true", label: "da kick hoat" },
+          { value: "false", label: "chua kich hoat" },
+        ]}
+        value={active}
+        setValue={handleActiveChange}
+      />
       <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Ảnh: </TableCell>
             <TableCell>Tên sản phẩm: </TableCell>
             <TableCell>Giá: </TableCell>
-            {/* <TableCell align="left">CMND : </TableCell>
-            <TableCell>
-              {" "}
-              R&M:{" "}
-              <Switch
-                {...label}
-                defaultChecked={viewRm}
-                onClick={() => setViewRm(!viewRm)}
-              />
-            </TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
-          {users?.map((row: any) => (
+          {products?.map((row: any) => (
             <TableRow key={row.id}>
               <TableCell style={{ maxWidth: "100px", overflow: "hidden" }}>
                 <img
                   src={`${process.env.REACT_APP_API_BASE_URl_IMAGE}/${row?.imageUrl}`}
-                  style={{width:'100px',height:'100px'}}
+                  style={{ width: '100px', height: '100px' }}
                 ></img>
               </TableCell>
               <TableCell style={{ maxWidth: "100px", overflow: "hidden" }}>
