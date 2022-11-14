@@ -11,6 +11,7 @@ import {order, responseOrder} from "./interface";
 import {Pagination} from "@mui/material";
 import {Box} from "@material-ui/core";
 import orderApi from "../../api/orderApi";
+import util from "./util"
 
 const dump :Array<order>= [
     {
@@ -43,7 +44,7 @@ export default function OrderView(child:any) {
             }
         }
          fetch().then()
-    },[page])
+    },[page,status])
 
     const handleChangePage = (e: any) => {
         setPage(e.value);
@@ -53,11 +54,12 @@ export default function OrderView(child:any) {
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
-                    <TableRow>
+                    <TableRow >
                         <TableCell>shop</TableCell>
                         <TableCell align="right">trạng thái</TableCell>
                         <TableCell align="right">tổng tiền</TableCell>
                         <TableCell align="right">ngày mua</TableCell>
+                        <TableCell align="right">số sản phẩm</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -65,13 +67,16 @@ export default function OrderView(child:any) {
                         <TableRow
                             key={row.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            hover={true}
+                            style={{cursor:"pointer"}}
                         >
                             <TableCell component="th" scope="row">
                                 {row.shop.name}
                             </TableCell>
-                            <TableCell align="right">{row.status}</TableCell>
+                            <TableCell align="right">{util.getNameStatusByValue(row.status)}</TableCell>
                             <TableCell align="right">{row.total}</TableCell>
                             <TableCell align="right">{new Date(row.createdAt).toDateString()}</TableCell>
+                            <TableCell align="right">{row.items.length}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

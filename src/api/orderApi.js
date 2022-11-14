@@ -35,7 +35,7 @@ const orderApi = {
   },
   // manage order
   async searchOrderByStatus(status,page){
-    return await orderConfig.get(`/sv3/orders/limit=20&page=${page}&status=${status}`)
+    return await orderConfig.get(`/orders?limit=5&page=${page}&status=${status}`)
   },
 
 };
