@@ -9,6 +9,9 @@ const orderApi = {
       `/reviews?product=${productId}&rating=${rating}&limit=${limit}&page=${page}`
     );
   },
+  async getReviewByOrderId(id){
+    return await orderConfig.get(`/reviews/${id}`)
+  },
   async getDistricts(idProvice) {
     return await orderConfig.get(`districts/${idProvice}`);
   },
@@ -36,6 +39,12 @@ const orderApi = {
   // manage order
   async searchOrderByStatus(status,page){
     return await orderConfig.get(`/orders?limit=5&page=${page}&status=${status}`)
+  },
+  async updateStatusOrder(id,status){
+    return await orderConfig.put(`/${id}`,status)
+  },
+  async detailOrderById(id){
+    return await orderConfig.get(`/orders/${id}`)
   },
 
 };
