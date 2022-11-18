@@ -76,6 +76,13 @@ interface IReviewOrder {
     rating: number;
 }
 
+interface IReviewCreatePayload {
+    order: string;
+    content: string;
+    rating: number;
+    currentUserId: string;
+    userType: string;
+}
 
 export type {
     IStatusOrder,
@@ -87,5 +94,6 @@ export type {
     IOrderDetail,
     IOrderDetailCustomer,
     IOrderDetailShop,
-    IReviewOrder
+    IReviewOrder,
+    IReviewCreatePayload
 }

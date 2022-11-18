@@ -1,11 +1,11 @@
 import {IStatusOrder} from "./interface";
 
-const listStatus:Array<IStatusOrder> = [
+const listStatus = [
     {name:"Đang chờ xác nhận",value:"wait_for_confirm"},
     {name:"Đã xác nhận",value:"confirmed"},
     {name:"Đang giao",value:"delivering"},
     {name:"Hoàn thành",value:"completed"},
-    {name:"Đã hủy",value:"canceled"}
+    {name:"Đã hủy",value:"cancelled"}
 ]
 
 const getListStatus = ()=>{
@@ -23,10 +23,11 @@ const getNameStatusByValue = (value:string|undefined):string=>{
 }
 const convertToMoneyString = (n: number|undefined): string => {
     if(!n) return "đ 0"
-    return n.toLocaleString("vn-VN", {
+    const rs =  n.toLocaleString("vn-VN", {
         style: "currency",
         currency: "VND",
     });
+    return rs
 };
 
 const  getFormattedDate = (date:Date)=> {

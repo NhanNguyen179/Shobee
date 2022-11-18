@@ -4,7 +4,7 @@ const status = {
     confirmed :  {name:"Đã xác nhận",value:"confirmed"},
     delivering:{name:"Đang giao",value:"delivering"},
     completed:{name:"Hoàn thành",value:"completed"},
-    canceled:{name:"Đã hủy",value:"canceled"},
+    canceled:{name:"Đã hủy",value:"cancelled"},
 }
 
 export default {

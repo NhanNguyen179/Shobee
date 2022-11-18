@@ -4,11 +4,6 @@ const orderApi = {
   async getProvinces() {
     return await orderConfig.get("provinces/");
   },
-  async getReviewByProductId(productId, rating = 0, limit = 20, page = 1) {
-    return await orderConfig.get(
-      `/reviews?product=${productId}&rating=${rating}&limit=${limit}&page=${page}`
-    );
-  },
   async getReviewByOrderId(id){
     return await orderConfig.get(`/reviews/${id}`)
   },
@@ -41,10 +36,18 @@ const orderApi = {
     return await orderConfig.get(`/orders?limit=5&page=${page}&status=${status}`)
   },
   async updateStatusOrder(id,status){
-    return await orderConfig.put(`/${id}`,status)
+    return await orderConfig.patch(`/orders/${id}`, {status})
   },
   async detailOrderById(id){
     return await orderConfig.get(`/orders/${id}`)
+  },
+  async getReviewByProductId(productId, rating = 0, limit = 20, page = 1) {
+    return await orderConfig.get(
+        `/reviews?product=${productId}&rating=${rating}&limit=${limit}&page=${page}`
+    );
+  },
+  async createReview(payload){
+    return await orderConfig.post('/reviews',payload)
   },
 
 };
